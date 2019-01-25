@@ -1,0 +1,39 @@
+\paragraph{1.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{2.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{3.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{4.}
+We calculated the cumulative distribution function from the density function by 
+$G(x) = \int_{-\infty}^{x} g(x) dx$, and we get
+\begin{equation}
+G(x) =
+\begin{cases}
+0, & x \leq 0 \\
+c\alpha^{-1}x^\alpha, & 0\ < x < 1 \\
+c(\alpha^{-1} + e^{-1}-e^{-x}), & 1\leq x .
+\end{cases}
+\end{equation}
+
+From this knowledge we find that the inverse of G(X) is:
+
+\begin{equation}
+G^{-1}(u) = 
+\begin{cases}
+\left(\frac{u\alpha}{c}\right)^{\frac{1}{\alpha}}, & 0 < u \leq c\alpha^{-1} \\
+ln\left[c^{-1}(u-1)\right], & c\alpha^{-1} < u \leq 1
+\end{cases}
+\end{equation}
+
+\begin{equation}
+    E(x) = c\left[\frac{1}{\alpha+1}+2e^{-1}\right]
+\label{eq:expected_A}
+\end{equation}
+The variance one can find from the equation $var(x) = E(x^2)-\left[E(x)\right]^2$. Then by calculating $E(x^2)$ the same way as the expected value in \eqref{eq:expected_A}, we get
+\begin{equation}
+    Var(x) = c\left[\frac{1}{\alpha+2}+5e^{-1}\right] -c^2\left[ \frac{1}{\alpha+1}+ 2e^{-1}\right]
+\end{equation}

@@ -1,0 +1,38 @@
+\documentclass[11pt,a4paper,oneside]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\renewcommand{\thesection}{Problem}
+
+\title{Computer Intensive Statistical Methods - Exercise 1}
+\author{Martin Outzen Berild, Sindre Henriksen}
+\date{January 2018}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1mm} 
+
+\begin{document}
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{A}
+\label{sec:problemA}
+\input{problemA.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{B}
+\label{sec:problemB}
+\input{problemB.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{C}
+\label{sec:problemC}
+\input{problemC.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{D}
+\label{sec:problemD}
+\input{problemD.tex}
+
+\end{document}
