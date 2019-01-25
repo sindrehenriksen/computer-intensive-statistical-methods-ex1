@@ -6,36 +6,36 @@ library(tibble)
 
 ## ---- A2
 # Params
-a2_alpha = 0.5
-a2_n = 100000
+alpha = 0.5
+n = 100000
 
 # Simulate and calculate empirical and true means and variances
-a2_samples = tibble(x = rg(a2_n, a2_alpha))
-a2_empirical_mean = mean(a2_samples$x)
-a2_empirical_var = var(a2_samples$x)
-a2_true_mean = c_func(a2_alpha) * (1 / (a2_alpha + 1) + 2 * exp(-1))
-a2_true_var = c_func(a2_alpha) * (1 / (a2_alpha + 2) + 5 * exp(-1)) - 
-  a2_true_mean^2
+samples = tibble(x = rg(n, alpha))
+empirical_mean = mean(samples$x)
+empirical_var = var(samples$x)
+true_mean = c_func(alpha) * (1 / (alpha + 1) + 2 * exp(-1))
+true_var = c_func(alpha) * (1 / (alpha + 2) + 5 * exp(-1)) - 
+  true_mean^2
 
 # Plot histogram of distribution together with PDF
-ggplot(data=a2_samples) +
+ggplot(data=samples) +
   geom_histogram(aes(x=x, y=..density..), bins=100, colour="white", 
                  fill="cornflowerblue") +
-  stat_function(fun=function(x)(g(x, a2_alpha)), color="darkred",
-                xlim=c(0.05, max(a2_samples$x)))
+  stat_function(fun=function(x)(g(x, alpha)), color="darkred",
+                xlim=c(0.05, max(samples$x)))
 
 # Compare empirical means and variances with true values for different alphas
-a2_empirical_means = a2_empirical_vars = numeric(9)
-a2_true_means = a2_true_vars = numeric(9)
-a2_alphas = seq(0.1, 0.9, 0.1)
+empirical_means = empirical_vars = numeric(9)
+true_means = true_vars = numeric(9)
+alphas = seq(0.1, 0.9, 0.1)
 for(i in 1:9) {
-  a2_samples_i = tibble(x = rg(a2_n, a2_alphas[i]))
-  a2_empirical_means[i] = mean(a2_samples_i$x)
-  a2_empirical_vars[i] = var(a2_samples_i$x)
-  a2_true_means[i] = c_func(a2_alphas[i]) * (1 / (a2_alphas[i] + 1) + 
+  samples_i = tibble(x = rg(n, alphas[i]))
+  empirical_means[i] = mean(samples_i$x)
+  empirical_vars[i] = var(samples_i$x)
+  true_means[i] = c_func(alphas[i]) * (1 / (alphas[i] + 1) + 
                                                2 * exp(-1))
-  a2_true_vars[i] = c_func(a2_alphas[i]) * (1 / (a2_alphas[i] + 2) +
-                                              5 * exp(-1)) - a2_true_means[i]^2
+  true_vars[i] = c_func(alphas[i]) * (1 / (alphas[i] + 2) +
+                                              5 * exp(-1)) - true_means[i]^2
 }
-max((a2_empirical_means - a2_true_means) / a2_true_means)
-max((a2_empirical_vars - a2_true_vars) / a2_true_vars)
+max((empirical_means - true_means) / true_means)
+max((empirical_vars - true_vars) / true_vars)
