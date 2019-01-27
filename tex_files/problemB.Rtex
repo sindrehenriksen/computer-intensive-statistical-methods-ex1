@@ -4,7 +4,16 @@ read_chunk("../code/functions.R")
 <<echo=FALSE, cache=FALSE>>=
 read_chunk("../code/problemB1.R")
 @
+<<echo=FALSE, cache=FALSE>>=
+read_chunk("../code/problemB2.R")
+@
+<<echo=FALSE>>=
+source("../code/functions.R")
+library(ggplot2)
+library(tibble)
+@
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{1.}
 We consider a gamma distribution with parameters $\alpha \in (0, 1)$ and $\beta = 1$, i.e.
 %
@@ -30,6 +39,7 @@ where $c = \e\alpha/(\e + \alpha)$, as before. We set $k$ as small as possible t
 
 \paragraph{(b)}
 The function \texttt{rf1()} below generates a vector of $n$ independent samples from $f$ with $\alpha < 1$ and $\beta = 1$.
+%
 <<k, eval=FALSE>>=
 @
 \vspace{-1em}
@@ -39,10 +49,47 @@ The function \texttt{rf1()} below generates a vector of $n$ independent samples 
 <<rf1, eval=FALSE>>=
 @
 
-
+Next we test \texttt{rf1()}.
+%
+<<B1, out.width='4in'>>==
+@
+%
+We see that the density from the simulations matches $f$ almost perfectly. Also, with $\alpha =$ \Sexpr{alpha}, the empirical mean and variance are \Sexpr{signif(empirical_mean, 4)} and \Sexpr{signif(empirical_var, 4)}, respectively, which is close to the theoretical value $\alpha$. Simulating with 9 different values of $\alpha$ the greatest relative error of the empirical means and variances lie within a few percent.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{2.}
+We now consider a gamma distribution \eqref{eq:f} with parameters $\alpha > 0$ and $\beta = 1$. We wish to generate samples from the distribution using the ratio of uniforms method. That is, we sample uniformly from
+%
+\begin{equation*}
+    C_f = \left\{ (x_1, x_2): 0 \leq x_1 \leq \sqrt{f^*\left(\frac{x1}{x2}\right)} \right\} \quad \text{where} \quad f^*(x) =
+    \begin{cases}
+    x^{\alpha-1} \e^{-x}, & 0 < x\\
+    0, & \text{otherwise}.
+    \end{cases}
+\end{equation*}
+%
+We know that $C_f \subset [0,a] \times [b_-,b_+]$, where
+%
+\begin{equation*}
+    a = \sqrt{\sup_x f^*(x)} = \sqrt{\alpha - 1}, \quad b_- = - \sqrt{\sup_{x \leq 0} x^2 f^*(x)} = 0, \quad b_+ = \sqrt{\sup_{x \geq 0} x^2 f^*(x)} = \sqrt{\alpha + 1} \, .
+\end{equation*}
+%
+This can be utilized by sampling uniformly on $[0,a] \times [b_-,b_+]$ and accepting only values $(x_1, x_2) \in C_f$. Then $y = x_1/x_2$ will be a sample from the desired distribution $f$. The algorithm is implemented in the following functions.
+%
+<<f_star, eval=FALSE>>=
+@
+\vspace{-1em}
+<<f_star_log, eval=FALSE>>=
+@
+\vspace{-1em}
+<<rf2, eval=FALSE>>=
+@
+
+Test:
+<<B2, eval=TRUE, out.width='4in'>>=
+@
+%
+???
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{3.}
