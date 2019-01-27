@@ -1,4 +1,28 @@
 \paragraph{1.}
+We consider a gamma distribution with parameters $\alpha \in (0, 1)$ and $\beta = 1$, i.e.
+%
+\begin{equation}
+\label{eq:f}
+    f(x) = 
+    \begin{cases}
+    \frac{1}{\G(\alpha)} x^{\alpha-1} \e^{-x}, & 0 < x, \\
+    0, & \text{otherwise}.
+    \end{cases}
+\end{equation}
+%
+
+\paragraph{(a)}
+We wish to generate samples from the distribution given in equation~\eqref{eq:f} using rejection sampling with $g(x)$ (see equation~\eqref{eq:g}) as proposal density. We need to find $k \geq 1$ s.t. $f(x) \leq k \cdot g(x)$. In addition to the trivial case $x \leq 0$ (where $f(x) = g(x) = 0$, there are two cases:
+%
+\begin{align*}
+    0 < x < 1: & \quad \frac{\e^{-x}}{\Gamma(\alpha)c} \leq \frac{1}{\Gamma(\alpha)c} = \frac{\e + \alpha}{\Gamma(\alpha + 1)e} \leq k \\
+    x \geq 1: & \quad \frac{x^{\alpha - 1}}{\Gamma(\alpha)c} \leq \frac{1}{\Gamma(\alpha)c} = \frac{\e + \alpha}{\Gamma(\alpha + 1)e} \leq k \, ,
+\end{align*}
+%
+where $c = \e\alpha/(\e + \alpha)$, as before. We set $k$ as small as possible to maximize the acceptance probability $k^{-1}$, i.e. $k = [\Gamma(\alpha)c]^{-1}$.
+
+\paragraph{(b)}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{2.}
