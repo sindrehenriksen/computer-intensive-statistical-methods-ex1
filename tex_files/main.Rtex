@@ -11,13 +11,6 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1mm} 
 
-<<echo=FALSE>>=
-read_chunk("../code/functions.R")
-@
-<<echo=FALSE>>=
-read_chunk("../code/problemB2.R")
-@
-
 \title{Computer Intensive Statistical Methods - Exercise 1}
 \author{Martin Outzen Berild, Sindre Henriksen}
 \date{January 2018}
@@ -28,21 +21,21 @@ read_chunk("../code/problemB2.R")
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{A}
 \label{sec:problemA}
-\input{problemA.tex}
+\input{problemA}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{B}
 \label{sec:problemB}
-\input{problemB.tex}
+\input{problemB}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{C}
 \label{sec:problemC}
-\input{problemC.tex}
+\input{problemC}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{D}
 \label{sec:problemD}
-\input{problemD.tex}
+\input{problemD}
 
 \end{document}
