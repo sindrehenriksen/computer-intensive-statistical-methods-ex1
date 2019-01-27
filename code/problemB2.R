@@ -3,6 +3,8 @@ rm(list=ls())
 source("functions.R")
 
 ## ---- B1
+set.seed(123)
+
 # Params
 alpha = 10
 n = 10000

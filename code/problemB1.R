@@ -5,6 +5,8 @@ library(ggplot2)
 library(tibble)
 
 ## ---- B1
+set.seed(123)
+
 # Params
 alpha = 0.5
 n = 10000
@@ -16,10 +18,10 @@ empirical_var = var(samples$x)
 true_mean = true_var = alpha
 
 # Plot histogram of distribution together with PDF
-ggplot(data=samples) + 
-  geom_histogram(aes(x=x, y=..density..), bins=100, colour="white", 
+ggplot(data=samples) +
+  geom_histogram(aes(x=x, y=..density..), bins=100, colour="white",
                  fill="cornflowerblue", show.legend=TRUE) +
-  stat_function(fun=function(x)f(x, alpha), colour="darkred", 
+  stat_function(fun=function(x)f(x, alpha), colour="darkred",
                 xlim=c(0.05, max(samples$x)))
   #stat_function(fun=function(x)dgamma(x, shape=alpha),
   #              xlim=c(0.05, max(samples$x)))

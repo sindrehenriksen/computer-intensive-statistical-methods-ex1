@@ -5,6 +5,8 @@ library(ggplot2)
 library(tibble)
 
 ## ---- B1
+set.seed(123)
+
 # Params
 alpha = beta = 5
 n = 10000
