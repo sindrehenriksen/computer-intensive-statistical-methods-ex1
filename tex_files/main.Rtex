@@ -5,12 +5,22 @@
 
 \renewcommand{\thesection}{Problem}
 
-\title{Computer Intensive Statistical Methods - Exercise 1}
-\author{Martin Outzen Berild, Sindre Henriksen}
-\date{January 2018}
+\newcommand{\G}{\mathrm{\Gamma}} % Gamma function
+\newcommand{\e}{\mathrm{e}} % Euler's number
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1mm} 
+
+<<echo=FALSE>>=
+read_chunk("../code/functions.R")
+@
+<<echo=FALSE>>=
+read_chunk("../code/problemB2.R")
+@
+
+\title{Computer Intensive Statistical Methods - Exercise 1}
+\author{Martin Outzen Berild, Sindre Henriksen}
+\date{January 2018}
 
 \begin{document}
 \maketitle
