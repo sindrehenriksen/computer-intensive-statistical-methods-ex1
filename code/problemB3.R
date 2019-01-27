@@ -4,7 +4,7 @@ source("functions.R")
 library(ggplot2)
 library(tibble)
 
-## ---- B1
+## ---- B3
 set.seed(123)
 
 # Params
