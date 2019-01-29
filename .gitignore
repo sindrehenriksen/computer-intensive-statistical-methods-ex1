@@ -2,6 +2,9 @@
 # Edit at https://www.gitignore.io/?templates=r,vim
 
 ### R ###
+# Old code
+old.R
+
 # History files
 .Rhistory
 .Rapp.history
