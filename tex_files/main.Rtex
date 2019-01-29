@@ -21,21 +21,21 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{A}
 \label{sec:problemA}
-\input{problemA}
+\include{problemA}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{B}
 \label{sec:problemB}
-\input{problemB}
+\include{problemB}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{C}
 \label{sec:problemC}
-\input{problemC}
+\include{problemC}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{D}
 \label{sec:problemD}
-\input{problemD}
+\include{problemD}
 
 \end{document}
