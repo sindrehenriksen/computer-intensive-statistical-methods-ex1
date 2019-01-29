@@ -36,6 +36,28 @@ r_boxmuller <- function(n){
   return(sample_box)
 }
 
+## ---- r_multinorm
+# Simulate d x n values from a d-variate normal distribution
+r_multinorm<- function(n,d){
+  x <-matrix(0,d,n)
+  for (i in 1:d){
+    df = r_boxmuller(n)
+    x[i,] = t(df[,1])
+    if ((d-i) > 0){
+      i = i + 1
+      x[i,] = t(df[,2])
+    }
+  }
+  A <- matrix(0,d,d)
+  for (i in 1:d){
+    A[,i] = runif(d)
+  }
+  mu = runif(d)*10
+  multinorm <- list(y = mu + A%*%x, true_mean = mu, true_var = A%*%t(A))
+  return(multinorm)
+}
+
+
 ## ---- k
 # k is 1/acceptance probability
 k = function(alpha) {
