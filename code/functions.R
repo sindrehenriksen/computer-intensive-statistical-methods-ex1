@@ -1,4 +1,12 @@
 ## ---- c
+
+## --- rexp
+# simulate n values from a exponential distribution with lambda > 0
+r_exp <- function(lambda,n){
+  exp_dist = -1/lambda*log(runif(n))
+  return(exp_dist)
+}
+
 # Constant c
 c_func = function(alpha) {
   exp(1) * alpha / (exp(1) + alpha)
