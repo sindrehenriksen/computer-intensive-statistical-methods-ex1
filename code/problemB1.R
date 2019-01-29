@@ -19,12 +19,10 @@ true_mean = true_var = alpha
 
 # Plot histogram of distribution together with PDF
 ggplot(data=samples) +
-  geom_histogram(aes(x=x, y=..density..), bins=50, colour="white",
-                 fill="cornflowerblue", show.legend=TRUE) +
+  geom_histogram(aes(x=x, y=..density.., col=0), bins=50, colour="white",
+                 fill="cornflowerblue") +
   stat_function(fun=function(x)f_gamma1(x, alpha), colour="darkred",
                 xlim=c(0.05, max(samples$x)))
-  #stat_function(fun=function(x)dgamma(x, shape=alpha),
-  #              xlim=c(0.05, max(samples$x)))
 
 # Compare empirical means and variances with true values for different alphas
 empirical_means = empirical_vars = numeric(9)
