@@ -20,7 +20,7 @@ true_mean = true_var = alpha
 
 # Plot histogram of distribution together with PDF
 ggplot(data=samples) +
-  geom_histogram(aes(x=x, y=..density..), bins=100, colour="white",
+  geom_histogram(aes(x=x, y=..density..), bins=50, colour="white",
                  fill="cornflowerblue") +
   stat_function(fun=function(x)dgamma(x, shape=alpha), colour="darkred")
 

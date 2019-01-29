@@ -20,7 +20,7 @@ true_var = alpha / beta^2
 
 # Plot histogram of distribution together with PDF
 ggplot(data=samples) +
-  geom_histogram(aes(x=x, y=..density..), bins=100, colour="white",
+  geom_histogram(aes(x=x, y=..density..), bins=50, colour="white",
                  fill="cornflowerblue") +
   stat_function(fun=function(x)dgamma(x, shape=alpha, rate=beta),
                 colour="darkred")
