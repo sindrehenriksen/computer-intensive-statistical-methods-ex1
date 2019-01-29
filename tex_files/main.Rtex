@@ -6,7 +6,7 @@
 \renewcommand{\thesection}{Problem}
 
 \newcommand{\G}{\mathrm{\Gamma}} % Gamma function
-\newcommand{\e}{\mathrm{e}} % Euler's number
+\newcommand{\e}{e} % Euler's number
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1mm} 

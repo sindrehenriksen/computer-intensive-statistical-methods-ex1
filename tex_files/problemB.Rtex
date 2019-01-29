@@ -46,10 +46,10 @@ The function \texttt{r\_gamma1()} below generates a vector of $n$ independent sa
 <<k, eval=FALSE>>=
 @
 \vspace{-1em}
-<<f, eval=FALSE>>=
+<<f_gamma1, eval=FALSE>>=
 @
 \vspace{-1em}
-<<rf1, eval=FALSE>>=
+<<r_gamma1, eval=FALSE>>=
 @
 
 Next we test \texttt{r\_gamma1()}.
@@ -74,22 +74,42 @@ We now consider a Gamma distribution \eqref{eq:f} with parameters $\alpha > 0$ a
 We know that $C_f \subset [0,a] \times [b_-,b_+]$, where
 %
 \begin{equation*}
-    a = \sqrt{\sup_x f^*(x)} = \left(\frac{alpha-1}{\e}\right)^\frac{\alpha-1}{2}, \quad b_- = - \sqrt{\sup_{x \leq 0} x^2 f^*(x)} = 0, \quad b_+ = \sqrt{\sup_{x \geq 0} x^2 f^*(x)} = \left(\frac{alpha+1}{\e}\right)^\frac{\alpha+1}{2} \, .
+\begin{gathered}
+    a = \sqrt{\sup_x f^*(x)} = \left(\frac{\alpha-1}{\e}\right)^\frac{\alpha-1}{2} \, , \quad b_- = - \sqrt{\sup_{x \leq 0} x^2 f^*(x)} = 0 \ \text{and} \\
+    b_+ = \sqrt{\sup_{x \geq 0} x^2 f^*(x)} = \left(\frac{\alpha+1}{\e}\right)^\frac{\alpha+1}{2} \, .
+\end{gathered}
 \end{equation*}
 %
-This can be utilized by sampling uniformly on $[0,a] \times [b_-,b_+]$ and accepting only values $(x_1, x_2) \in C_f$. Then $y = x_1/x_2$ will be a sample from the desired distribution $f$. The algorithm is implemented in the following functions.
+This can be utilized by sampling uniformly on $[0,a] \times [b_-,b_+]$ and accepting only values $(x_1, x_2) \in C_f$. Then $y = x_1/x_2$ will be a sample from the desired distribution $f$. 
+
+The problem is that we will get very big numerical values in intermediate steps for large $\alpha$, so we have to be careful and implement a logarithmic version. We let $(y_1,y_2) = (\log x_1, \log x_2)$ and sample from $y_1$ and $y_2$ by letting $u_1$ and $u_2$ be uniform on $(0, 1)$, so that
+%
+\begin{equation*}
+\begin{gathered}
+    y_1 = \log{a} + \log{u_1} = \frac{\alpha-1}{2} \log \frac{\alpha-1}{\e} + \log u_1 \quad \text{and} \\
+    y_1 = \log{b_+} + \log{u_2} = \frac{\alpha+1}{2} \log \frac{\alpha+1}{\e} + \log u_2 
+\end{gathered}
+\end{equation*}
+%
+are distributed as desired, i.e. such that $(x_1, x_2) = (\exp y_1, \exp y_2)$ are distributed uniformly on $[0,a] \times [b_-,b_+]$. Now we accept $(x_1,x_2)$ for which 
+%
+\begin{equation*}
+    \log x_1 \leq 1/2 \cdot \log f^*(x_2/x_1) = \frac{1}{2} \left[(\alpha-1)(\log x_2 - \log x_1) - \frac{x_2}{x_1}\right] \, .
+\end{equation*}
+%
+The algorithm is implemented in the following functions.
 %
 <<log_sqrt_f_star, eval=FALSE>>=
 @
 \vspace{-1em}
-<<rf2, eval=FALSE>>=
+<<r_gamma2, eval=FALSE>>=
 @
 
-Test:
-<<B2, eval=TRUE, fig.align='center', fig.width=6, fig.height=4, fig.cap="test">>=
+Next we test \texttt{r\_gamma2()}.
+<<B2, eval=TRUE, fig.align='center', fig.width=6, fig.height=4, fig.cap="Theoretical density (red line) from a Gamma distribution with parameters $\\alpha = 5$ and frequency histogram of simulations.">>=
 @
 %
-???
+We see in figure~\ref{fig:B2} that the density from the simulations matches $f$ almost perfectly. Also, with $\alpha =$ \Sexpr{alpha}, the empirical mean and variance are \Sexpr{signif(empirical_mean, 4)} and \Sexpr{signif(empirical_var, 4)}, respectively, which is close to the theoretical value $\alpha$. Simulating with 4 different values of $\alpha$, including two large ones to test for numerical stability, the greatest relative error of the empirical means and variances lie within a few percent.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{3.}
@@ -105,10 +125,12 @@ The parameter $\beta$ in a Gamma distribution
 %
 $\alpha, \beta > 1$, is an inverse scale parameter. Thus, if $X \sim \text{Gamma}(\alpha, 1)$, then $X / \beta \sim \text{Gamma}(\alpha, \beta)$. So we can simulate from an arbitrary Gamma distribution using the following function.
 %
-<<rf, eval=FALSE>>=
+<<r_gamma, eval=FALSE>>=
 @
 
-The following code illustrates that it works as expected. figure \ref{fig:B3}
+The following code illustrates that it works as expected.
 %
-<<B3, eval=TRUE, fig.align='center', fig.width=6, fig.height=4, fig.cap="test">>=
+<<B3, eval=TRUE, fig.align='center', fig.width=6, fig.height=4, fig.cap="Theoretical density (red line) from a Gamma distribution with parameters $\\alpha = 5$ and frequency histogram of simulations.">>=
 @
+
+Figure~\ref{fig:B3} shows the density from the simulations matches $f$ almost perfectly. With $\alpha =$ \Sexpr{alpha} and $\beta =$ \Sexpr{beta}, the empirical mean and variance are \Sexpr{signif(empirical_mean, 4)} and \Sexpr{signif(empirical_var, 4)}, respectively, which is close to the theoretical values $\alpha / \beta =$ \Sexpr{alpha/beta} and $\alpha / \beta^2 =$ \Sexpr{alpha/beta^2}, respectively. Simulating with 25 different combinations of values of $\alpha$ and $\beta$, the greatest relative error of the empirical means and variances lie within a few percent.
