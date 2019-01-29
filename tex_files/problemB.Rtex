@@ -7,6 +7,9 @@ read_chunk("../code/problemB1.R")
 <<echo=FALSE, cache=FALSE>>=
 read_chunk("../code/problemB2.R")
 @
+<<echo=FALSE, cache=FALSE>>=
+read_chunk("../code/problemB3.R")
+@
 <<echo=FALSE>>=
 source("../code/functions.R")
 library(ggplot2)
@@ -15,7 +18,7 @@ library(tibble)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{1.}
-We consider a gamma distribution with parameters $\alpha \in (0, 1)$ and $\beta = 1$, i.e.
+We consider a Gamma distribution with parameters $\alpha \in (0, 1)$ and $\beta = 1$, i.e.
 %
 \begin{equation}
 \label{eq:f}
@@ -51,14 +54,14 @@ The function \texttt{rf1()} below generates a vector of $n$ independent samples 
 
 Next we test \texttt{rf1()}.
 %
-<<B1, out.width='4in'>>==
+<<B1, fig.cap="test">>==
 @
 %
-We see that the density from the simulations matches $f$ almost perfectly. Also, with $\alpha =$ \Sexpr{alpha}, the empirical mean and variance are \Sexpr{signif(empirical_mean, 4)} and \Sexpr{signif(empirical_var, 4)}, respectively, which is close to the theoretical value $\alpha$. Simulating with 9 different values of $\alpha$ the greatest relative error of the empirical means and variances lie within a few percent.
+We see in figure~\ref{fig:B1} that the density from the simulations matches $f$ almost perfectly. Also, with $\alpha =$ \Sexpr{alpha}, the empirical mean and variance are \Sexpr{signif(empirical_mean, 4)} and \Sexpr{signif(empirical_var, 4)}, respectively, which is close to the theoretical value $\alpha$. Simulating with 9 different values of $\alpha$ the greatest relative error of the empirical means and variances lie within a few percent.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{2.}
-We now consider a gamma distribution \eqref{eq:f} with parameters $\alpha > 0$ and $\beta = 1$. We wish to generate samples from the distribution using the ratio of uniforms method. That is, we sample uniformly from
+We now consider a Gamma distribution \eqref{eq:f} with parameters $\alpha > 0$ and $\beta = 1$. We wish to generate samples from the distribution using the ratio of uniforms method. That is, we sample uniformly from
 %
 \begin{equation*}
     C_f = \left\{ (x_1, x_2): 0 \leq x_1 \leq \sqrt{f^*\left(\frac{x1}{x2}\right)} \right\} \quad \text{where} \quad f^*(x) =
@@ -86,10 +89,29 @@ This can be utilized by sampling uniformly on $[0,a] \times [b_-,b_+]$ and accep
 @
 
 Test:
-<<B2, eval=TRUE, out.width='4in'>>=
+<<B2, eval=TRUE, fig.cap="test">>=
 @
 %
 ???
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{3.}
+The parameter $\beta$ in a Gamma distribution
+%
+\begin{equation*}
+    f(x) = 
+    \begin{cases}
+    \frac{\beta^\alpha}{\G(\alpha)} x^{\alpha-1} \e^{-\beta x}, & 0 < x, \\
+    0, & \text{otherwise}, 
+    \end{cases}
+\end{equation*}
+%
+$\alpha, \beta > 1$, is an inverse scale parameter. Thus, if $X \sim \text{Gamma}(\alpha, 1)$, then $X / \beta \sim \text{Gamma}(\alpha, \beta)$. So we can simulate from an arbitrary Gamma distribution using the following function.
+%
+<<rf, eval=FALSE>>=
+@
+
+The following code illustrates that it works as expected. figure \ref{fig:B3}
+%
+<<B3, eval=TRUE, fig.align='center', fig.width=5, fig.height=4, fig.cap="test">>=
+@
