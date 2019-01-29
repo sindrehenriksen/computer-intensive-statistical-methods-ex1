@@ -1,12 +1,4 @@
 ## ---- c
-
-## --- rexp
-# simulate n values from a exponential distribution with lambda > 0
-r_exp <- function(lambda,n){
-  exp_dist = -1/lambda*log(runif(n))
-  return(exp_dist)
-}
-
 # Constant c
 c_func = function(alpha) {
   exp(1) * alpha / (exp(1) + alpha)
@@ -33,6 +25,15 @@ rg = function(n, alpha) {
   x = ifelse((u < c / alpha), (u * alpha / c)^(1 / alpha),
              log(c / (1 - u)))
   return(x)
+}
+
+## ---- r_boxmuller
+# Simulate n values from the standard normal distribution using the box muller algorithm
+r_boxmuller <- function(n){
+  x1 = 2*pi*runif(n)
+  x2 = -2*log(runif(n))
+  sample_box <-data.frame(y1 = sqrt(x2)*cos(x1), y2 = sqrt(x2)*cos(x1), x1 = x1, x2 = x2)
+  return(sample_box)
 }
 
 ## ---- k
