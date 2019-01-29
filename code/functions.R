@@ -64,13 +64,13 @@ k = function(alpha) {
   (exp(1) + alpha) / (gamma(alpha + 1) * exp(1))
 }
 
-## ---- f
+## ---- f_gamma1
 # PDF f
 f_gamma1 = function(x, alpha) {
   ifelse(x <= 0, 0, x^(alpha - 1) * exp(-x) / gamma(alpha))
 }
 
-## ---- rf1
+## ---- r_gamma1
 # Simulate n values from f with 0 < alpha < 1
 r_gamma1 = function(n, alpha) {
   stopifnot(0 < alpha && alpha < 1)
@@ -95,7 +95,7 @@ log_sqrt_f_star = function(log_x1, log_x2, alpha) {
   0.5 * ((alpha - 1) * (log_x2 - log_x1) - exp(log_x2 - log_x1))
 }
 
-## ---- rf2
+## ---- r_gamma2
 # Simulate n values from f with alpha > 1
 r_gamma2 = function(n, alpha) {
   stopifnot(alpha > 1)
@@ -120,7 +120,7 @@ r_gamma2 = function(n, alpha) {
   return(list("x" = xs, "n_tries" = n_tries))
 }
 
-## ---- rf
+## ---- r_gamma
 # Simulate n values from a gamma distribution
 r_gamma = function(n, alpha, beta) {
   stopifnot(alpha > 0 && beta > 0)
