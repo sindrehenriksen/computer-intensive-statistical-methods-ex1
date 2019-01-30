@@ -142,3 +142,27 @@ r_gamma = function(n, alpha, beta) {
   }
   return(x / beta)
 }
+
+## ---- r_dirichlet
+# Simulate n x (K-1) values from a dirichlet distribution
+r_dirichlet <- function(K,n,alpha,beta){
+  x = matrix(0,n,K-1)
+  z = matrix(0,n,K)
+  for  (k in 1:K){
+    z[,k] = r_gamma(n,alpha[k],beta)
+  }
+  x = z[,1:(K-1)]/rowSums(z)
+  A = sum(alpha)
+  true_var = matrix(0,K-1,K-1)
+  for (i in 1:(K-1)){
+    for (j in i:(K-1)){
+      if (i != j){
+        true_var[i,j] = -alpha[i]*alpha[j]/(A^2*(A+1))
+        true_var[j,i] = true_var[i,j]
+      }else{
+        true_var[i,j] = alpha[i]/(A*(A+1)) - alpha[i]^2/(A^2*(A+1))
+      }
+    }
+  }
+  return(list(x = x, empirical_mean = colMeans(x), empirical_var = var(x), true_mean = alpha[1:(K-1)]/A, true_var = true_var))
+}
