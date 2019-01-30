@@ -10,7 +10,7 @@ g = function(x, alpha) {
   stopifnot(0 < alpha && alpha < 1)
   c = c_func(alpha)
   x = ifelse(0 < x,
-             ifelse(x < 1, c * x^(alpha - 1), c * exp(-x)),
+             ifelse(x < 1, c * x ^ (alpha - 1), c * exp(-x)),
              0)
   return(x)
 }
@@ -22,41 +22,48 @@ rg = function(n, alpha) {
   c = c_func(alpha)
   u = runif(n)
   x = numeric(n)
-  x = ifelse((u < c / alpha), (u * alpha / c)^(1 / alpha),
+  x = ifelse((u < c / alpha), (u * alpha / c) ^ (1 / alpha),
              log(c / (1 - u)))
   return(x)
 }
 
 ## ---- r_boxmuller
-# Simulate n values from the standard normal distribution using the box muller algorithm
-r_boxmuller <- function(n){
-  x1 = 2*pi*runif(n)
-  x2 = -2*log(runif(n))
-  sample_box <-data.frame(y1 = sqrt(x2)*cos(x1), y2 = sqrt(x2)*cos(x1), x1 = x1, x2 = x2)
+# Simulate n values from the standard normal distribution using the box muller
+# algorithm
+r_boxmuller = function(n) {
+  x1 = 2 * pi * runif(n)
+  x2 = -2 * log(runif(n))
+  sample_box = data.frame(
+    y1 = sqrt(x2) * cos(x1),
+    y2 = sqrt(x2) * cos(x1),
+    x1 = x1,
+    x2 = x2
+  )
   return(sample_box)
 }
 
 ## ---- r_multinorm
 # Simulate d x n values from a d-variate normal distribution
-r_multinorm<- function(n,d){
-  x <-matrix(0,d,n)
-  for (i in 1:d){
+r_multinorm = function(n, d) {
+  x = matrix(0, d, n)
+  for (i in 1:d) {
     df = r_boxmuller(n)
-    x[i,] = t(df[,1])
-    if ((d-i) > 0){
+    x[i, ] = t(df[, 1])
+    if ((d - i) > 0) {
       i = i + 1
-      x[i,] = t(df[,2])
+      x[i, ] = t(df[, 2])
     }
   }
-  A <- matrix(0,d,d)
-  for (i in 1:d){
-    A[,i] = runif(d)
+  A = matrix(0, d, d)
+  for (i in 1:d) {
+    A[, i] = runif(d)
   }
-  mu = runif(d)*10
-  multinorm <- list(y = mu + A%*%x, true_mean = mu, true_var = A%*%t(A))
+  mu = runif(d) * 10
+  multinorm = list(y = mu + A %*% x,
+                   true_mean = mu,
+                   true_var = A %*% t(A))
   return(multinorm)
 }
-
 
 ## ---- k
 # k is 1/acceptance probability
@@ -67,7 +74,7 @@ k = function(alpha) {
 ## ---- f_gamma1
 # PDF f
 f_gamma1 = function(x, alpha) {
-  ifelse(x <= 0, 0, x^(alpha - 1) * exp(-x) / gamma(alpha))
+  ifelse(x <= 0, 0, x ^ (alpha - 1) * exp(-x) / gamma(alpha))
 }
 
 ## ---- r_gamma1
@@ -77,11 +84,11 @@ r_gamma1 = function(n, alpha) {
   k = k(alpha)
   xs = numeric(n)
   n_accepted = 0
-  while(n_accepted < n) {
+  while (n_accepted < n) {
     x = rg(1, alpha)
     acceptance_level = f_gamma1(x, alpha) / (g(x, alpha) * k)
     u = runif(1)
-    if(u <= acceptance_level) {
+    if (u <= acceptance_level) {
       n_accepted = n_accepted + 1
       xs[n_accepted] = x
     }
@@ -102,7 +109,7 @@ r_gamma2 = function(n, alpha) {
   xs = numeric(n)
   n_accepted = 0
   n_tries = 0
-  while(n_accepted < n){
+  while (n_accepted < n) {
     n_missing = n - n_accepted
     u1 = runif(n_missing)
     u2 = runif(n_missing)
@@ -110,7 +117,7 @@ r_gamma2 = function(n, alpha) {
     log_x2 = (alpha + 1) / 2 * log((alpha + 1) / exp(1)) + log(u2)
     inside = log_x1 <= log_sqrt_f_star(log_x1, log_x2, alpha)
     n_inside = sum(inside)
-    if(n_inside > 0) {
+    if (n_inside > 0) {
       xs[(n_accepted + 1):(n_accepted + n_inside)] = exp(log_x2[inside] -
                                                            log_x1[inside])
       n_accepted = n_accepted + n_inside
@@ -124,10 +131,10 @@ r_gamma2 = function(n, alpha) {
 # Simulate n values from a gamma distribution
 r_gamma = function(n, alpha, beta) {
   stopifnot(alpha > 0 && beta > 0)
-  if(alpha < 1) {
+  if (alpha < 1) {
     x = r_gamma1(n, alpha)
   }
-  else if(alpha == 1) {
+  else if (alpha == 1) {
     x = rexp(-1)  # !!!!!!!!!!
   }
   else {

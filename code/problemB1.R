@@ -1,5 +1,5 @@
 #setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-rm(list=ls())
+rm(list = ls())
 source("functions.R")
 library(ggplot2)
 library(tibble)
@@ -18,16 +18,24 @@ empirical_var = var(samples$x)
 true_mean = true_var = alpha
 
 # Plot histogram of distribution together with PDF
-ggplot(data=samples) +
-  geom_histogram(aes(x=x, y=..density.., col=0), bins=50, colour="white",
-                 fill="cornflowerblue") +
-  stat_function(fun=function(x)f_gamma1(x, alpha), colour="darkred",
-                xlim=c(0.05, max(samples$x)))
+ggplot(data = samples) +
+  geom_histogram(
+    aes(x = x, y = ..density.., col = 0),
+    bins = 50,
+    colour = "white",
+    fill = "cornflowerblue"
+  ) +
+  stat_function(
+    fun = function(x)
+      f_gamma1(x, alpha),
+    colour = "darkred",
+    xlim = c(0.05, max(samples$x))
+  )
 
 # Compare empirical means and variances with true values for different alphas
 empirical_means = empirical_vars = numeric(9)
 alphas = seq(0.1, 0.9, 0.1)
-for(i in 1:9) {
+for (i in 1:9) {
   x = r_gamma1(n, alphas[i])
   empirical_means[i] = mean(x)
   empirical_vars[i] = var(x)

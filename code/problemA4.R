@@ -1,5 +1,5 @@
 #setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-rm(list=ls())
+rm(list = ls())
 source("functions.R")
 library(ggplot2)
 library(tibble)
@@ -7,12 +7,12 @@ library(tibble)
 ## ---- A2
 set.seed(123)
 
-#params
+# Params
 d = 5
 n = 10000
 
 # Simulate and calculate empirical and true means and variances
-samples <- r_multinorm(n,d)
+samples <- r_multinorm(n, d)
 empirical_mean = rowMeans(samples$y)
 empirical_var = var(t(samples$y))
 max((empirical_mean - samples$true_mean) / samples$true_mean)
