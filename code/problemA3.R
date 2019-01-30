@@ -19,7 +19,7 @@ empirical_var = var(samples$y1)
 norm1 = ggplot(data = samples) +
   geom_histogram(
     aes(x = y1, y = ..density..),
-    binwidth = 0.2,
+    bins = 50,
     colour = "white",
     fill = "cornflowerblue",
     size = 0.1

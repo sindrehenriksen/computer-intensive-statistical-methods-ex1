@@ -22,7 +22,7 @@ true_var = 1 / lambda ^ 2
 ggplot(data = samples) +
   geom_histogram(
     aes(x = value, y = ..density..),
-    binwidth = 0.1,
+    bins = 50,
     colour = "white",
     fill = "cornflowerblue",
     size = 0.1
@@ -33,7 +33,6 @@ ggplot(data = samples) +
     color = "darkred",
     size = 1
   )
-
 
 # Compare empirical means and variances with true values for different alphas
 n_lambdas = 9
