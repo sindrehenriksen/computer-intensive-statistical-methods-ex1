@@ -130,7 +130,7 @@ $\alpha, \beta > 1$, is an inverse scale parameter. Thus, if $X \sim \text{Gamma
 
 The following code illustrates that it works as expected.
 %
-<<B3, eval=TRUE, fig.align='center', fig.width=6, fig.height=4, fig.cap="Theoretical density (red line) from a Gamma distribution with parameters $\\alpha = 5$ and frequency histogram of simulations.">>=
+<<B3, eval=TRUE, fig.align='center', fig.width=6, fig.height=4, fig.cap="Theoretical density (red line) from a Gamma distribution with parameters $\\alpha = 10$ and $\\beta = 10$ and frequency histogram of simulations.">>=
 @
 
 Figure~\ref{fig:B3} shows the density from the simulations matches $f$ almost perfectly. With $\alpha =$ \Sexpr{alpha} and $\beta =$ \Sexpr{beta}, the empirical mean and variance are \Sexpr{signif(empirical_mean, 4)} and \Sexpr{signif(empirical_var, 4)}, respectively, which is close to the theoretical values $\alpha / \beta =$ \Sexpr{alpha/beta} and $\alpha / \beta^2 =$ \Sexpr{alpha/beta^2}, respectively. Simulating with 25 different combinations of values of $\alpha$ and $\beta$, the greatest relative error of the empirical means and variances lie within a few percent.
