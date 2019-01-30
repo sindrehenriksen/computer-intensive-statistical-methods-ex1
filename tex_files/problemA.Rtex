@@ -2,27 +2,79 @@
 read_chunk("../code/functions.R")
 @
 <<echo=FALSE, cache=FALSE>>=
+read_chunk("../code/problemA1.R")
+@
+<<echo=FALSE, cache=FALSE>>=
 read_chunk("../code/problemA2.R")
+@
+<<echo=FALSE, cache=FALSE>>=
+read_chunk("../code/problemA3.R")
+@
+<<echo=FALSE, cache=FALSE>>=
+read_chunk("../code/problemA4.R")
 @
 <<echo=FALSE>>=
 source("../code/functions.R")
 library(ggplot2)
 library(tibble)
+library(cowplot)
 @
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{1.}
+bla bla
+%
+<<r_exp, eval=FALSE>>=
+@
+
+Next we test \texttt{r\_exp()}.
+%
+<<A1, fig.align='center', fig.width=6, fig.height=4, fig.cap="fig caption">>==
+@
+%
+bla bla
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{2.}
 
+\paragraph{(a)}
+bla bla
+
+\paragraph{(b)}
+bla bla
+%
+<<g, eval=FALSE>>=
+@
+\vspace{-1em}
+<<rg, eval=FALSE>>=
+@
+
+Next we test \texttt{rg()}.
+%
+<<A2, fig.align='center', fig.width=6, fig.height=4, fig.cap="fig caption">>==
+@
+%
+bla bla
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{3.}
+bla bla
+%
+<<r_boxmuller, eval=FALSE>>=
+@
+
+Next we test \texttt{r_boxmuller()}.
+%
+<<A3, fig.align='center', fig.width=6, fig.height=4, fig.cap="fig caption">>==
+@
+%
+bla bla
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{4.}
 We calculated the cumulative distribution function from the density function by 
 $G(x) = \int_{-\infty}^{x} g(x) dx$, and we get
+%
 \begin{equation}
 G(x) =
 \begin{cases}
@@ -31,9 +83,9 @@ c\alpha^{-1}x^\alpha, & 0\ < x < 1 \\
 c(\alpha^{-1} + e^{-1}-e^{-x}), & 1\leq x .
 \end{cases}
 \end{equation}
-
+%
 From this knowledge we find that the inverse of G(X) is:
-
+%
 \begin{equation}
 G^{-1}(u) = 
 \begin{cases}
@@ -41,12 +93,26 @@ G^{-1}(u) =
 ln\left[c^{-1}(u-1)\right], & c\alpha^{-1} < u \leq 1
 \end{cases}
 \end{equation}
-
+%
 \begin{equation}
     E(x) = c\left[\frac{1}{\alpha+1}+2e^{-1}\right]
 \label{eq:expected_A}
 \end{equation}
+%
 The variance one can find from the equation $var(x) = E(x^2)-\left[E(x)\right]^2$. Then by calculating $E(x^2)$ the same way as the expected value in \eqref{eq:expected_A}, we get
+%
 \begin{equation}
     Var(x) = c\left[\frac{1}{\alpha+2}+5e^{-1}\right] -c^2\left[ \frac{1}{\alpha+1}+ 2e^{-1}\right]
 \end{equation}
+%
+bla bla
+%
+<<r_boxmuller, eval=FALSE>>=
+@
+
+Next we test \texttt{r_boxmuller()}.
+%
+<<A3, fig.align='center', fig.width=6, fig.height=4, fig.cap="fig caption">>==
+@
+%
+bla bla

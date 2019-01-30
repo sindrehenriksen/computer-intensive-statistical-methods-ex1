@@ -54,7 +54,7 @@ The function \texttt{r\_gamma1()} below generates a vector of $n$ independent sa
 
 Next we test \texttt{r\_gamma1()}.
 %
-<<B1, fig.align='center', fig.width=6, fig.height=4, fig.cap="Theoretical density (red line) from a Gamma distribution with parameters $\\alpha = 0.5$ and frequency histogram of simulations.">>==
+<<B1, fig.align='center', fig.width=6, fig.height=4, fig.cap="Theoretical density (red line) from a Gamma distribution with parameters $\\alpha = 0.5$ and $\\beta = 1$ and frequency histogram of simulations.">>==
 @
 %
 We see in figure~\ref{fig:B1} that the density from the simulations matches $f$ almost perfectly. Also, with $\alpha =$ \Sexpr{alpha}, the empirical mean and variance are \Sexpr{signif(empirical_mean, 4)} and \Sexpr{signif(empirical_var, 4)}, respectively, which is close to the theoretical value $\alpha$. Simulating with 9 different values of $\alpha$ the greatest relative error of the empirical means and variances lie within a few percent.
@@ -106,10 +106,12 @@ The algorithm is implemented in the following functions.
 @
 
 Next we test \texttt{r\_gamma2()}.
-<<B2, eval=TRUE, fig.align='center', fig.width=6, fig.height=4, fig.cap="Theoretical density (red line) from a Gamma distribution with parameters $\\alpha = 5$ and frequency histogram of simulations.">>=
+<<B2, eval=TRUE, fig.align='center', fig.width=6, fig.height=4, fig.cap=c("Theoretical density (red line) from a Gamma distribution with parameters $\\alpha = 5$ and $\\beta = 1$ and frequency histogram of simulations.", "Number of tries needed to generate 1000 realizations from a Gamma distribution with $\\beta = 1$ as a function of alpha.")>>=
 @
 %
-We see in figure~\ref{fig:B2} that the density from the simulations matches $f$ almost perfectly. Also, with $\alpha =$ \Sexpr{alpha}, the empirical mean and variance are \Sexpr{signif(empirical_mean, 4)} and \Sexpr{signif(empirical_var, 4)}, respectively, which is close to the theoretical value $\alpha$. Simulating with 4 different values of $\alpha$, including two large ones to test for numerical stability, the greatest relative error of the empirical means and variances lie within a few percent.
+We see in figure~\ref{fig:B21} that the density from the simulations matches $f$ almost perfectly. Also, with $\alpha =$ \Sexpr{alpha}, the empirical mean and variance are \Sexpr{signif(empirical_mean, 4)} and \Sexpr{signif(empirical_var, 4)}, respectively, which is close to the theoretical value $\alpha$. Simulating with 4 different values of $\alpha$, including two large ones to test for numerical stability, the greatest relative error of the empirical means and variances lie within a few percent.
+
+Figure~\ref{fig:B22} shows a plot of the number of tries needed to simulate 1000 realizations for different $\alpha \in (1, 2000]$. The number of tries increases rapidly for small increasing $\alpha$. This indicates the relative size of $C_f$ compared to $[0,a] \times [b_-,b_+]$ decreases rapidly. The second derivative of the number of tries needed is negative though, i.e. the number flattens out while $alpha$ increases.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{3.}
@@ -123,7 +125,7 @@ The parameter $\beta$ in a Gamma distribution
     \end{cases}
 \end{equation*}
 %
-$\alpha, \beta > 1$, is an inverse scale parameter. Thus, if $X \sim \text{Gamma}(\alpha, 1)$, then $X / \beta \sim \text{Gamma}(\alpha, \beta)$. So we can simulate from an arbitrary Gamma distribution using the following function.
+$\alpha, \beta > 1$, is an inverse scale parameter. Thus, if $X \sim \text{Gamma}(\alpha, 1)$, then $X / \beta \sim \text{Gamma}(\alpha, \beta)$. Furthermore $\text{Gamma}(1,1) = \text{Exp}(1)}$. So we can simulate from an arbitrary Gamma distribution using the following function.
 %
 <<r_gamma, eval=FALSE>>=
 @
@@ -134,3 +136,5 @@ The following code illustrates that it works as expected.
 @
 
 Figure~\ref{fig:B3} shows the density from the simulations matches $f$ almost perfectly. With $\alpha =$ \Sexpr{alpha} and $\beta =$ \Sexpr{beta}, the empirical mean and variance are \Sexpr{signif(empirical_mean, 4)} and \Sexpr{signif(empirical_var, 4)}, respectively, which is close to the theoretical values $\alpha / \beta =$ \Sexpr{alpha/beta} and $\alpha / \beta^2 =$ \Sexpr{alpha/beta^2}, respectively. Simulating with 25 different combinations of values of $\alpha$ and $\beta$, the greatest relative error of the empirical means and variances lie within a few percent.
+
+
