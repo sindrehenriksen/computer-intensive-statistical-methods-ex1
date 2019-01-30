@@ -4,7 +4,7 @@ source("functions.R")
 library(ggplot2)
 library(tibble)
 
-## ---- A2
+## ---- A1
 set.seed(123)
 
 # Params
@@ -12,7 +12,7 @@ lambda = 0.5
 n = 10000
 
 # Simulate and calculate empirical and true means and variances
-samples <- enframe(r_exp(lambda, n))
+samples = enframe(r_exp(lambda, n))
 empirical_mean = mean(samples$value)
 empirical_var = var(samples$value)
 true_mean = 1 / lambda
