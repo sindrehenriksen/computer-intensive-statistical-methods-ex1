@@ -11,7 +11,7 @@ library(tibble)
 @
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-We consider a vector $\bm{y} = (y_1, y_2, y_3, y_4)$ of multinomially distributed counts with probabilities 
+We consider a vector $\bm{y} = (y_1, y_2, y_3, y_4)$ of multinomially distributed counts with probabilities $\bm{p} = (}$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{1.}
