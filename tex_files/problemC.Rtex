@@ -1,4 +1,23 @@
+<<echo=FALSE, cache=FALSE>>=
+read_chunk("../code/functions.R")
+@
+<<echo=FALSE, cache=FALSE>>=
+read_chunk("../code/problemC2.R")
+@
+<<echo=FALSE>>=
+source("../code/functions.R")
+@
 \paragraph{1.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{2.}
+\paragraph{2.} bla bla
+
+%
+<<r_dirichlet, eval=FALSE>>=
+@
+
+test \texttt{r\_dirichlet()}.
+%
+<<C2, fig.align='center', fig.width=6, fig.height=4, fig.cap="fig caption">>==
+@
+%
