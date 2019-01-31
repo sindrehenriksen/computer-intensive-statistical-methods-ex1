@@ -2,13 +2,7 @@
 read_chunk("../code/functions.R")
 @
 <<echo=FALSE, cache=FALSE>>=
-read_chunk("../code/problemB1.R")
-@
-<<echo=FALSE, cache=FALSE>>=
-read_chunk("../code/problemB2.R")
-@
-<<echo=FALSE, cache=FALSE>>=
-read_chunk("../code/problemB3.R")
+read_chunk("../code/problemD.R")
 @
 <<echo=FALSE>>=
 source("../code/functions.R")
@@ -16,7 +10,12 @@ library(ggplot2)
 library(tibble)
 @
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+We consider a vector $\bm{y} = (y_1, y_2, y_3, y_4)$ of multinomially distributed counts with probabilities 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{1.}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{2.}
