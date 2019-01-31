@@ -2,7 +2,7 @@
 rm(list = ls())
 source("functions.R")
 library(ggplot2)
-library(cowplot)
+library(Rmisc)
 
 ## ---- A3
 set.seed(123)
@@ -46,4 +46,4 @@ norm2 = ggplot(data = samples) +
     size = 1
   )
 
-plot_grid(norm1, norm2, labels = "AUTO")
+multiplot(norm1, norm2, cols = 2)
