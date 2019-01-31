@@ -4,8 +4,10 @@ c_func = function(alpha) {
   exp(1) * alpha / (exp(1) + alpha)
 }
 
-r_exp <- function(lambda,n){
-  exp_dist = -1/lambda*log(runif(n))
+## ---- r_exp
+# Simulate n values from Exp(1)
+r_exp <- function(n, lambda) {
+  exp_dist = -1 / lambda * log(runif(n))
   return(exp_dist)
 }
 
@@ -53,10 +55,10 @@ r_multinorm = function(n, d) {
   x = matrix(0, d, n)
   for (i in 1:d) {
     df = r_boxmuller(n)
-    x[i,] = t(df[, 1])
+    x[i, ] = t(df[, 1])
     if ((d - i) > 0) {
       i = i + 1
-      x[i,] = t(df[, 2])
+      x[i, ] = t(df[, 2])
     }
   }
   A = matrix(0, d, d)
@@ -150,90 +152,101 @@ r_gamma = function(n, alpha, beta) {
 
 ## ---- r_dirichlet
 # Simulate n x (K-1) values from a dirichlet distribution
-r_dirichlet <- function(K,n,alpha,beta){
-  x = matrix(0,n,K-1)
-  z = matrix(0,n,K)
-  for  (k in 1:K){
-    z[,k] = r_gamma(n,alpha[k],beta)
+r_dirichlet <- function(K, n, alpha, beta) {
+  x = matrix(0, n, K - 1)
+  z = matrix(0, n, K)
+  for (k in 1:K) {
+    z[, k] = r_gamma(n, alpha[k], beta)
   }
-  x = z[,1:(K-1)]/rowSums(z)
+  x = z[, 1:(K - 1)] / rowSums(z)
   A = sum(alpha)
-  true_var = matrix(0,K-1,K-1)
-  for (i in 1:(K-1)){
-    for (j in i:(K-1)){
-      if (i != j){
-        true_var[i,j] = -alpha[i]*alpha[j]/(A^2*(A+1))
-        true_var[j,i] = true_var[i,j]
-      }else{
-        true_var[i,j] = alpha[i]/(A*(A+1)) - alpha[i]^2/(A^2*(A+1))
+  true_var = matrix(0, K - 1, K - 1)
+  for (i in 1:(K - 1)) {
+    for (j in i:(K - 1)) {
+      if (i != j) {
+        true_var[i, j] = -alpha[i] * alpha[j] / (A ^ 2 * (A + 1))
+        true_var[j, i] = true_var[i, j]
+      } else{
+        true_var[i, j] = alpha[i] / (A * (A + 1)) - alpha[i] ^ 2 /
+          (A ^ 2 * (A + 1))
       }
     }
   }
-  return(list(x = x, empirical_mean = colMeans(x), empirical_var = var(x), true_mean = alpha[1:(K-1)]/A, true_var = true_var))
-
-## ---- f_star_d
-# Posterior density f(theta|y) (up to a normalising constant)
-f_posterior_star = function(theta, y) {
-  stopifnot(0 < theta && theta < 1)
-  stopifnot(length(y) == 4)
-  return((2 + theta) ^ y[1] * (1 - theta) ^ (y[2] + y[3]) * theta ^ y[4])
+  return(
+    list(
+      x = x,
+      empirical_mean = colMeans(x),
+      empirical_var = var(x),
+      true_mean = alpha[1:(K - 1)] / A,
+      true_var = true_var
+    )
+  )
 }
 
-## ---- r_d
-# Simulate n values from f with 0 < alpha < 1
-r_posterior = function(n, y) {
-  f_star_max = -optim(0.5, function(x)
-    (-f_posterior_star(x, y)),
-    method="L-BFGS-B", lower=1e-10, upper=1-1e-10)$value
-  c = integrate(function(x)
-    (f_posterior_star(x, y)), lower = 0,
-    upper = 1)$value
-  f_posterior = function(x)
-    (f_posterior_star(x, y) / c)
-  k = f_star_max / c  # 1 / acceptance probability
-  xs = numeric(n)
-  n_accepted = 0
-  n_random_numbers = 0
-  while (n_accepted < n) {
-    n_missing = n - n_accepted
-    x = runif(n_missing)
-    acceptance_level = f_posterior(x) / k
-    u = runif(n_missing)
-    inside = u <= acceptance_level
-    n_inside = sum(inside)
-    if (n_inside > 0) {
-      xs[(n_accepted + 1):(n_accepted + n_inside)] = x[inside]
-      n_accepted = n_accepted + n_inside
-    }
-    n_random_numbers = n_random_numbers + n_missing
+  ## ---- f_star_d
+  # Posterior density f(theta|y) (up to a normalising constant)
+  f_posterior_star = function(theta, y) {
+    stopifnot(0 < theta && theta < 1)
+    stopifnot(length(y) == 4)
+    return((2 + theta) ^ y[1] * (1 - theta) ^ (y[2] + y[3]) * theta ^ y[4])
   }
-  return(list("x" = xs, "n_random_numbers" = n_random_numbers))
-}
 
-r_posterior_approx = function(n, y) {
-  m = 20 * n
-  u = runif(m)
-  f_over_g = f_posterior_star(u, y) / 1
-  weights = f_over_g / sum(f_over_g)
-  x = sample(u, size = n, prob = weights)
-  return(list(x = x, n_random_numbers = m))
-}
+  ## ---- r_d
+  # Simulate n values from f with 0 < alpha < 1
+  r_posterior = function(n, y) {
+    f_star_max = -optim(0.5, function(x)
+      (-f_posterior_star(x, y)),
+      method = "L-BFGS-B", lower = 1e-10, upper = 1 - 1e-10)$value
+    c = integrate(function(x)
+      (f_posterior_star(x, y)),
+      lower = 0,
+      upper = 1)$value
+    f_posterior = function(x)
+      (f_posterior_star(x, y) / c)
+    k = f_star_max / c  # 1 / acceptance probability
+    xs = numeric(n)
+    n_accepted = 0
+    n_random_numbers = 0
+    while (n_accepted < n) {
+      n_missing = n - n_accepted
+      x = runif(n_missing)
+      acceptance_level = f_posterior(x) / k
+      u = runif(n_missing)
+      inside = u <= acceptance_level
+      n_inside = sum(inside)
+      if (n_inside > 0) {
+        xs[(n_accepted + 1):(n_accepted + n_inside)] = x[inside]
+        n_accepted = n_accepted + n_inside
+      }
+      n_random_numbers = n_random_numbers + n_missing
+    }
+    return(list("x" = xs, "n_random_numbers" = n_random_numbers))
+  }
 
-## ---- f_star_5_d
-# Posterior density f(theta|y) with prior Beta(1,5)
-# (up to a normalising constant)
-f_posterior_5_star = function(theta, y) {
-  stopifnot(0 < theta && theta < 1)
-  stopifnot(length(y) == 4)
-  return((2 + theta) ^ y[1] * (1 - theta) ^ (y[2] + y[3] + 4) * theta ^
-           y[4])
-}
+  r_posterior_approx = function(n, y) {
+    m = 20 * n
+    u = runif(m)
+    f_over_g = f_posterior_star(u, y) / 1
+    weights = f_over_g / sum(f_over_g)
+    x = sample(u, size = n, prob = weights)
+    return(list(x = x, n_random_numbers = m))
+  }
 
-## ---- is_d
-# Use importance sampling to estimate the posterior mean with prior Beta(1,5)
-posterior_mean_is = function(n, y) {
-  u = runif(n)
-  weights = f_posterior_5_star(u, y)
-  mean_is = sum(u * weights) / sum(weights)
-  return(mean_is)
-}
+  ## ---- f_star_5_d
+  # Posterior density f(theta|y) with prior Beta(1,5)
+  # (up to a normalising constant)
+  f_posterior_5_star = function(theta, y) {
+    stopifnot(0 < theta && theta < 1)
+    stopifnot(length(y) == 4)
+    return((2 + theta) ^ y[1] * (1 - theta) ^ (y[2] + y[3] + 4) * theta ^
+             y[4])
+  }
+
+  ## ---- is_d
+  # Use importance sampling to estimate the posterior mean with prior Beta(1,5)
+  posterior_mean_is = function(n, y) {
+    u = runif(n)
+    weights = f_posterior_5_star(u, y)
+    mean_is = sum(u * weights) / sum(weights)
+    return(mean_is)
+  }
