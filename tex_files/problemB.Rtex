@@ -106,7 +106,7 @@ The algorithm is implemented in the following functions.
 @
 
 Next we test \texttt{r\_gamma2()}.
-<<B2, eval=TRUE, fig.align='center', fig.width=6, fig.height=4, fig.cap=c("Theoretical density (red line) from a Gamma distribution with parameters $\\alpha = 5$ and $\\beta = 1$ and frequency histogram of simulations.", "Number of tries needed to generate 1000 realizations from a Gamma distribution with $\\beta = 1$ as a function of alpha.")>>=
+<<B2, eval=TRUE, fig.align='center', fig.width=6, fig.height=4, fig.cap=c("Theoretical density (red line) from a Gamma distribution with parameters $\\alpha = 5$ and $\\beta = 1$ and frequency histogram of simulations.", "Number of tries needed to generate 1000 realizations from a Gamma distribution with $\\beta = 1$ as a function of alpha.", "caption", "caption")>>=
 @
 %
 We see in figure~\ref{fig:B21} that the density from the simulations matches $f$ almost perfectly. Also, with $\alpha =$ \Sexpr{alpha}, the empirical mean and variance are \Sexpr{signif(empirical_mean, 4)} and \Sexpr{signif(empirical_var, 4)}, respectively, which is close to the theoretical value $\alpha$. Simulating with 4 different values of $\alpha$, including two large ones to test for numerical stability, the greatest relative error of the empirical means and variances lie within a few percent.
