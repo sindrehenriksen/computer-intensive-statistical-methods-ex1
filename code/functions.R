@@ -4,6 +4,11 @@ c_func = function(alpha) {
   exp(1) * alpha / (exp(1) + alpha)
 }
 
+r_exp <- function(lambda,n){
+  exp_dist = -1/lambda*log(runif(n))
+  return(exp_dist)
+}
+
 ## ---- g
 # PDF g
 g = function(x, alpha) {
