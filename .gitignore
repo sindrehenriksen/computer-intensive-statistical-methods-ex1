@@ -1,6 +1,9 @@
 # Created by https://www.gitignore.io/api/r,vim
 # Edit at https://www.gitignore.io/?templates=r,vim
 
+# TMUX
+tmux*
+
 ### R ###
 # Old code
 old.R

@@ -13,8 +13,6 @@ n = 10000
 
 # Simulate and calculate empirical and true means and variances
 sim = r_gamma2(n, alpha)
-# n_tries = sim$n_tries
-# print(n_tries)
 samples = tibble(x = sim$x)
 empirical_mean = mean(samples$x)
 empirical_var = var(samples$x)
@@ -78,8 +76,9 @@ ggplot(data = tibble(x = alphas, y = n_tries), aes(x = x, y = y)) +
   geom_point() +
   stat_function(
     fun = function(x)
-      (log10(500 * sqrt(x))
-      ), colour="darkred", geom="line"
+      (log10(500 * sqrt(x))),
+    colour = "darkred",
+    geom = "line"
   ) +
   scale_x_log10(
     breaks = scales::trans_breaks("log10", function(x)
