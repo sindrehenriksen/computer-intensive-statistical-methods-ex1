@@ -1,3 +1,21 @@
+<<echo=FALSE, cache=FALSE>>=
+read_chunk("../code/functions.R")
+@
+<<echo=FALSE, cache=FALSE>>=
+read_chunk("../code/problemB1.R")
+@
+<<echo=FALSE, cache=FALSE>>=
+read_chunk("../code/problemB2.R")
+@
+<<echo=FALSE, cache=FALSE>>=
+read_chunk("../code/problemB3.R")
+@
+<<echo=FALSE>>=
+source("../code/functions.R")
+library(ggplot2)
+library(tibble)
+@
+
 \paragraph{1.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
