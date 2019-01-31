@@ -63,7 +63,7 @@ bla bla
 <<r_boxmuller, eval=FALSE>>=
 @
 
-test \texttt{r_boxmuller()}.
+test \texttt{r\_boxmuller()}.
 %
 <<A3, fig.align='center', fig.width=6, fig.height=4, fig.cap="fig caption">>==
 @
@@ -107,10 +107,10 @@ The variance one can find from the equation $var(x) = E(x^2)-\left[E(x)\right]^2
 %
 bla bla
 %
-<<r_boxmuller, eval=FALSE>>=
+<<r_multinorm, eval=FALSE>>=
 @
 
-test \texttt{r\_boxmuller()}.
+test \texttt{r\_multinorm()}.
 %
 <<A4, fig.align='center', fig.width=6, fig.height=4, fig.cap="fig caption">>==
 @
