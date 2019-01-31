@@ -4,7 +4,7 @@ source("functions.R")
 library(ggplot2)
 library(tibble)
 
-## ---- D1
+## ---- D2
 set.seed(123)
 
 # Params
@@ -15,8 +15,6 @@ n = 10000
 y = c(125, 18, 20, 34)
 sim = r_posterior(n, y)
 sim_approx = r_posterior_approx(n, y)
-n_random_numbers = sim$n_random_numbers
-n_random_numbers_approx = sim_approx$n_random_numbers
 samples = tibble(x = sim$x, x_approx = sim_approx$x)
 empirical_mean = mean(samples$x)
 empirical_mean_approx = mean(samples$x_approx)
@@ -59,5 +57,11 @@ ggplot(data = samples) +
              col = "darkgreen",
              size = 0.5)
 
+## ---- D3
+# Number of random numbers generated to obtain n samples from the posterior
+n_random_numbers = sim$n_random_numbers
+n_random_numbers_approx = sim_approx$n_random_numbers
+
+## ---- D4
 # Use importance sampling to estimate the posterior mean with prior Beta(1,5)
 mean_is = posterior_mean_is(n, y)
