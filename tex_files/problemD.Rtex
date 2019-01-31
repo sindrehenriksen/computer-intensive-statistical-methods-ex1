@@ -48,9 +48,10 @@ Both methods are implemented in the code shown below.
 \paragraph{2.}
 In the following code we sample 10000 times from $f(\theta|\bm{y})$ using both the exact and the approximate sampling method, estimate the mean and compare with the theoretical distribution and mean.
 %
-<<D2, fig.align='center', fig.width=6, fig.height=4, fig.cap="The red line is the theoretical posterior density $f(\\theta|y)$. The bins are frequency histograms of simulations from an exact simulation algorithm (light blue) and an approximate algorithm (light grey). The colors are mixed where they overlap. The vertical red line is the theoretical mean, and the dark green line is the empirical mean from the exact algorithm.">>==
+<<D2, fig.align='center', fig.width=6, fig.height=4, fig.cap="The red line is the theoretical posterior density $f(\\theta|y)$ \eqref{eq:f_theta}. The bins are frequency histograms of simulations from an exact simulation algorithm (light blue) and an approximate algorithm (light grey). The colors are mixed where they overlap. The vertical red line is the theoretical mean, and the dark green line is the empirical mean from the exact algorithm.">>=
 @
-The estimated means from the exact method and the approximate method are $\Sexpr{empirical_mean}$ and $\Sexpr{empirial_mean_approx}$, respectively, close to the theoretical (numerically computed) mean $\mu = \Sexpr{true_mean}$. 
+%
+The estimated means from the exact method and the approximate method are \Sexpr{signif(empirical_mean, 4)} and \Sexpr{signif(empirical_mean_approx, 4)}, respectively, close to the theoretical (numerically computed) mean $\mu =$ \Sexpr{signif(true_mean, 4)}. The exact algorithm gives samples matching the theoretical distributi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{3.}
