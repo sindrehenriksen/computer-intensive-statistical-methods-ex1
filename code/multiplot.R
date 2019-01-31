@@ -1,6 +1,5 @@
 multiplot <- function(..., plotlist = NULL, file, cols = 1, layout = NULL) {
-  require(grid)
-  
+  library(grid)
   plots <- c(list(...), plotlist)
   
   numPlots = length(plots)
