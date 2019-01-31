@@ -10,6 +10,7 @@
 \newcommand{\G}{\mathrm{\Gamma}} % Gamma function
 \newcommand{\E}{\mathrm{E}}
 \newcommand{\e}{e} % Euler's number
+\newcommand{\vect}[1]{\boldsymbol{#1}}
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1mm} 
