@@ -125,7 +125,7 @@ The parameter $\beta$ in a Gamma distribution
     \end{cases}
 \end{equation*}
 %
-$\alpha, \beta > 1$, is an inverse scale parameter. Thus, if $X \sim \text{Gamma}(\alpha, 1)$, then $X / \beta \sim \text{Gamma}(\alpha, \beta)$. Furthermore $\text{Gamma}(1,1) = \text{Exp}(1)}$. So we can simulate from an arbitrary Gamma distribution using the following function.
+$\alpha, \beta > 1$, is an inverse scale parameter. Thus, if $X \sim \text{Gamma}(\alpha, 1)$, then $X / \beta \sim \text{Gamma}(\alpha, \beta)$. Furthermore $\text{Gamma}(1,1) = \text{Exp}(1)$. So we can simulate from an arbitrary Gamma distribution using the following function.
 %
 <<r_gamma, eval=FALSE>>=
 @
