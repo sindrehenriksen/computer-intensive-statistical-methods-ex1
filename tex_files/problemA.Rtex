@@ -82,7 +82,7 @@ The variance one can find from the equation $var(x) = E(x^2)-\left[E(x)\right]^2
 \begin{equation}
     Var(x) = c\left[\frac{1}{\alpha+2}+5e^{-1}\right] -c^2\left[ \frac{1}{\alpha+1}+ 2e^{-1}\right].
 \end{equation}
-Furthermore one calculates the normalizing constant $c$ from calculating $\int_0^\infity g(x) dx= 1$ and solving for $c$. Yielding 
+Furthermore one calculates the normalizing constant $c$ from calculating $\int_0^\infty g(x) dx= 1$ and solving for $c$. Yielding 
 $ c = \frac{e^1 \alpha}{e^1 + \alpha}$.
 
 \paragraph{(b)}

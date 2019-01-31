@@ -11,11 +11,37 @@ library(tibble)
 @
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-We consider a vector $\bm{y} = (y_1, y_2, y_3, y_4)$ of multinomially distributed counts with probabilities $\bm{p} = (}$
+We consider a vector $\bm{y} = (y_1, y_2, y_3, y_4)$ of multinomially distributed counts with probabilities $\bm{p} = (\frac{1}{2} + \frac{\theta}{4}, \frac{1-\theta}{4}, \frac{1-\theta}{4}, \frac{\theta}{4})$. The multinomial mass function is given by $f(y|\theta) \propto (2+\theta)^{y_1} (1-\theta)^{y_2+y_3} \theta^{y_4}$. The observed data is $y = (125, 18, 20, 34)$. First we assume a uniform prior on $(0, 1)$, resulting in a posterior density for $\theta$
+%
+\begin{equation*}
+    f(\theta|\bm{y}) \propto (2+\theta)^{y_1} (1-\theta)^{y_2+y_3} \theta^{y_4} = f^*(\theta | y) \, , \quad \theta \in (0,1) \, .
+\end{equation*}
+%
+In this task we are mainly interested in the posterior mean $\E(\theta|\bm{y})$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{1.}
+We wish to construct a rejection sampling algorithm to simulate from $f(\theta|\bm{y})$ using $\mathrm{U}(0,1)$ as the proposal density. This can be done exactly or approximately. To do it exactly we need to find $\max_{\theta} f^*(\theta)$. For the observed $\bm{y}$ we get
+%
+\begin{equation*}
+    \od{}{\theta} f^*(\theta|y) \propto -197 \theta^2 + 15 \theta + 68 = 0 \quad \Rightarrow \quad \theta_m \approx 0.62682150 \, ,
+\end{equation*}
+%
+and $f^*(\theta_m) \approx 1.83884 \cdot 10^{29}$. In the implementation the maximum is found numerically. We also need $c = \int_0^1 f^*(\theta|y) \dif \theta \approx 2.3577 \cdot 10^{28}$, which is found numerically. This gives the ideal overall acceptance probability $\frac{1}{k} = \max_{\theta} f(\theta|\bm{y}) = f^*(\theta_m) / c \approx 7.780$ since the proposal density $g(x) = 1$.
 
+To implement the approximate algorithm described in lecture 4 $k$ and $c$ are not needed, since
+%
+\begin{equation*}
+    w_i = \frac{f(x_i)}{g(x_i)} \bigg/ \sum_{j=1}^n\frac{f(x_j)}{g(x_j)} = \frac{f^*(x_i)}{g(x_i)} \bigg/ \sum_{j=1}^n\frac{f^*(x_j)}{g(x_j)}
+\end{equation*}
+%
+Both methods are implemented in the code shown below.
+%
+<<f_star_d, eval=FALSE>>=
+@
+\vspace{-1em}
+<<r_d, eval=FALSE>>=
+@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{2.}

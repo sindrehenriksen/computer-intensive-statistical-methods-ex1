@@ -3,10 +3,12 @@
 \usepackage{hyperref}
 \usepackage{amsmath}
 \usepackage{bm}
+\usepackage{commath}
 
 \renewcommand{\thesection}{Problem}
 
 \newcommand{\G}{\mathrm{\Gamma}} % Gamma function
+\newcommand{\E}{\mathrm{E}}
 \newcommand{\e}{e} % Euler's number
 
 \setlength{\parindent}{0pt}
