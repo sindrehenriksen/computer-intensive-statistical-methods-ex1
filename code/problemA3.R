@@ -19,7 +19,7 @@ empirical_var = var(samples$y1)
 norm1 = ggplot(data = samples) +
   geom_histogram(
     aes(x = y1, y = ..density..),
-    bins = 50,
+    bins = 40,
     colour = "white",
     fill = "cornflowerblue",
     size = 0.1
@@ -27,14 +27,13 @@ norm1 = ggplot(data = samples) +
   stat_function(
     fun = function(x)
       dnorm(x, 0, 1),
-    color = "darkred",
-    size = 1
+    color = "darkred"
   )
 
 norm2 = ggplot(data = samples) +
   geom_histogram(
     aes(x = y2, y = ..density..),
-    binwidth = 0.2,
+    bins = 40,
     colour = "white",
     fill = "cornflowerblue",
     size = 0.1
@@ -42,8 +41,7 @@ norm2 = ggplot(data = samples) +
   stat_function(
     fun = function(x)
       dnorm(x, 0, 1),
-    color = "darkred",
-    size = 1
+    color = "darkred"
   )
 
 multiplot(norm1, norm2, cols = 2)
