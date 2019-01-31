@@ -5,7 +5,7 @@ c_func = function(alpha) {
 }
 
 ## ---- r_exp
-# Simulate n values from Exp(1)
+# Simulate n values from Exp(lambda)
 r_exp <- function(n, lambda) {
   exp_dist = -1 / lambda * log(runif(n))
   return(exp_dist)
@@ -142,7 +142,7 @@ r_gamma = function(n, alpha, beta) {
     x = r_gamma1(n, alpha)
   }
   else if (alpha == 1) {
-    x = rexp(-1)  # !!!!!!!!!!
+    x = r_exp(n, lambda = 1)
   }
   else {
     x = r_gamma2(n, alpha)$x

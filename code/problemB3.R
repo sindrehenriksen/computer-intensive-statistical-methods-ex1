@@ -35,7 +35,7 @@ ggplot(data = samples) +
 # Compare empirical means and variances with true values for different alphas
 empirical_means = empirical_vars = numeric(25)
 true_means = true_vars = numeric(25)
-alphas = c(0.5, 5, 100, 2000, 5000)
+alphas = c(0.5, 1, 10, 100, 2000)
 betas = c(0.5, 2, 5, 20, 50)
 for (i in 1:25) {
   a = ((i - 1) %% 5) + 1
