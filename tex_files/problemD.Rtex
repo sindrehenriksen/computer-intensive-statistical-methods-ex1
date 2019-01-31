@@ -55,10 +55,13 @@ The estimated means from the exact method and the approximate method are \Sexpr{
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{3.}
+In the code below we check how many random numbers the algorithms have generated.
+%
 <<D3>>=
 @
 %
-The exact algorithm generates on average \Sexpr{n_random_numbers} $/$ \Sexpr{n} $=$ \Sexpr{n_random_numbers/n}tain one sample of $f(\theta|\bm{y})$, closely matching the inverse of the acceptance probability calculated approximately before. The approximate algorithm generates $m$ samples, set to 20 in the code. 
+The exact algorithm generates on average \Sexpr{n_random_numbers} $/$ \Sexpr{n} $=$ \Sexpr{n_random_numbers/n} random numbers to obtain one sample of $f(\theta|\bm{y})$, closely matching the inverse of the acceptance probability calculated approximately before. The approximate algorithm generates $m$, set to 20 in the code, random numbers per sample. With this $m$ the approximation is easily distinguished from the true distribution. The comparison might have had a different conclusion for a different proposal density, but here the exact algorithm is both more efficient and more notably precise.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{4.}
+

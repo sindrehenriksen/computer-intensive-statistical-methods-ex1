@@ -99,13 +99,13 @@ test \texttt{rg()}.
 <<A2, fig.align='center', fig.width=6, fig.height=4, fig.cap="Theoretical density (red line) from the $g(x)$ distribution with $\\alpha = 0.5$ and frequency histogram of simulations.">>==
 @
 %
-In Figure \ref{fig:A2} we see that the histogram height follow the theoretical distribution of g(x) using $\alpha = 0.5$. Also the code test of  \texttt{r\_g()} outputs the maximum relative error and variance. This tells us that the samples are indeed from the distribution g(x).
+In Figure \ref{fig:A2} we see that the histogram height follow the theoretical distribution of g(x) using $\alpha = 0.5$. Also the code test of  \texttt{r\_g()} outputs the maximum relative error and variance. This tells us that the samples are indeed from the distribution $g(x)$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{3.}
 %
 
-We wish to generate samples $n$ of two standard normal distribution using the Box-Muller algorithm, which consist of generating two uniform distributed variables in polar coordinates. Then transforming them into cartesian coordinates and we will check if these are indeed then normal distributed.
+We wish to generate $n$ samples of two standard normal distribution using the Box-Muller algorithm, which consist of generating two uniform distributed variables in polar coordinates. Then transforming them into cartesian coordinates and we will check if these are indeed then normal distributed.
 %
 <<r_boxmuller, eval=FALSE>>=
 @
@@ -119,9 +119,8 @@ In Figure \ref{fig:A3} we see that the frequency plot of the two sample follow t
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{4.}
-
 %
-bla bla
+We wish to generate $n$ samples from a $d$-variate normal distribution with a given mean $\mu$ and covariance $\Sigma$. We use the Box-Muller algorithm to generate $n$ samples of $d$ standard normal distribution($\vect{x} \sim \mathcal{N}_d[0,1]$). Then we use that $\vect{y} = \vect{\mu} + A\vect{x}$, where $\mu \sim \mathcal{U}_d[0,10]$ and $A$ is a $(d x d)$ matrix of uniformly distributed elements ($a_{ij} = U[0,1]$). Then we choose the covariance matrix to be $\Sigma = AA^T$, which makes it positive definite. 
 %
 <<r_multinorm, eval=FALSE>>=
 @
@@ -131,4 +130,5 @@ test \texttt{r\_multinorm()}.
 <<A4, fig.align='center', fig.width=6, fig.height=4, fig.cap="fig caption">>==
 @
 %
-bla bla
+From running test \texttt{r\_boxmuller()}, which outputs the maximum relative error of the mean and covariance, we see that we have generated samples from a d-variate normal distribution. 
+% maybe have divariate plot of this?
