@@ -13,9 +13,10 @@ library(tibble)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 We consider a vector $\bm{y} = (y_1, y_2, y_3, y_4)$ of multinomially distributed counts with probabilities $\bm{p} = (\frac{1}{2} + \frac{\theta}{4}, \frac{1-\theta}{4}, \frac{1-\theta}{4}, \frac{\theta}{4})$. The multinomial mass function is given by $f(y|\theta) \propto (2+\theta)^{y_1} (1-\theta)^{y_2+y_3} \theta^{y_4}$. The observed data is $y = (125, 18, 20, 34)$. First we assume a uniform prior on $(0, 1)$, resulting in a posterior density for $\theta$
 %
-\begin{equation*}
+\begin{equation}
+\label{eq:f_theta}
     f(\theta|\bm{y}) \propto (2+\theta)^{y_1} (1-\theta)^{y_2+y_3} \theta^{y_4} = f^*(\theta | y) \, , \quad \theta \in (0,1) \, .
-\end{equation*}
+\end{equation}
 %
 In this task we are mainly interested in the posterior mean $\E(\theta|\bm{y})$.
 
@@ -27,7 +28,7 @@ We wish to construct a rejection sampling algorithm to simulate from $f(\theta|\
     \od{}{\theta} f^*(\theta|y) \propto -197 \theta^2 + 15 \theta + 68 = 0 \quad \Rightarrow \quad \theta_m \approx 0.62682150 \, ,
 \end{equation*}
 %
-and $f^*(\theta_m) \approx 1.83884 \cdot 10^{29}$. In the implementation the maximum is found numerically. We also need $c = \int_0^1 f^*(\theta|y) \dif \theta \approx 2.3577 \cdot 10^{28}$, which is found numerically. This gives the ideal overall acceptance probability $\frac{1}{k} = \max_{\theta} f(\theta|\bm{y}) = f^*(\theta_m) / c \approx 7.780$ since the proposal density $g(x) = 1$.
+and $f^*(\theta_m) \approx 1.83884 \cdot 10^{29}$. In the implementation the maximum is found numerically. We also need $c = \int_0^1 f^*(\theta|y) \dif \theta \approx 2.3577 \cdot 10^{28}$, which is found numerically. This gives the ideal overall acceptance probability $\frac{1}{k} = \max_{\theta} f(\theta|\bm{y}) = f^*(\theta_m) / c \approx 7.780$ since the proposal density is $g(x) = 1$.
 
 To implement the approximate algorithm described in lecture 4 $k$ and $c$ are not needed, since
 %
@@ -45,6 +46,11 @@ Both methods are implemented in the code shown below.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{2.}
+In the following code we sample 10000 times from $f(\theta|\bm{y})$ using both the exact and the approximate sampling method, estimate the mean and compare with the theoretical distribution and mean.
+%
+<<D2, fig.align='center', fig.width=6, fig.height=4, fig.cap="The red line is the theoretical posterior density $f(\\theta|y)$. The bins are frequency histograms of simulations from an exact simulation algorithm (light blue) and an approximate algorithm (light grey). The colors are mixed where they overlap. The vertical red line is the theoretical mean, and the dark green line is the empirical mean from the exact algorithm.">>==
+@
+The estimated means from the exact method and the approximate method are $\Sexpr{empirical_mean}$ and $\Sexpr{empirial_mean_approx}$, respectively, close to the theoretical (numerically computed) mean $\mu = \Sexpr{true_mean}$. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{3.}
