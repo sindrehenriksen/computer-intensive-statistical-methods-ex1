@@ -15,9 +15,9 @@ read_chunk("../code/problemA4.R")
 @
 <<echo=FALSE>>=
 source("../code/functions.R")
+source("../code/multiplot.R")
 library(ggplot2)
 library(tibble)
-library(cowplot)
 @
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -103,7 +103,9 @@ In Figure \ref{fig:A2} we see that the histogram height follow the theoretical d
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{3.}
+%
 
+We wish to generate samples $n$ of two standard normal distribution using the Box-Muller algorithm, which consist of generating two uniform distributed variables in polar coordinates. Then transforming them into cartesian coordinates and we will check if these are indeed then normal distributed.
 %
 <<r_boxmuller, eval=FALSE>>=
 @
@@ -113,7 +115,7 @@ test \texttt{r\_boxmuller()}.
 <<A3, fig.align='center', fig.width=6, fig.height=4, fig.cap="fig caption">>==
 @
 %
-bla bla
+In Figure \ref{fig:A3} we see that the frequency plot of the two sample follow the theoretical standard normal distribution $\mathcal{N}[0,1]$. This tells us that the Box-Muller algorithm worked in generating samples from a standard normal distribution.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{4.}
