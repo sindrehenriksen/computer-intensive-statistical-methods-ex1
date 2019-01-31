@@ -1,8 +1,8 @@
 #setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 rm(list = ls())
 source("functions.R")
+source("multiplot.R")
 library(ggplot2)
-library(Rmisc)
 
 ## ---- A3
 set.seed(123)
