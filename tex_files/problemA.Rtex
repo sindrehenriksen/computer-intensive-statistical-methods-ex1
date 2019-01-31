@@ -103,7 +103,7 @@ In Figure \ref{fig:A2} we see that the histogram height follow the theoretical d
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{3.}
-bla bla
+
 %
 <<r_boxmuller, eval=FALSE>>=
 @
