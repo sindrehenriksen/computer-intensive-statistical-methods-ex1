@@ -2,7 +2,7 @@
 rm(list = ls())
 source("functions.R")
 
-## ---- A1
+## ---- C2
 set.seed(123)
 
 # Params
