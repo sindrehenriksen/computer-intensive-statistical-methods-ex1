@@ -82,7 +82,14 @@ We wish to use importance sampling to estimate the new posterior mean $\mu$. The
     \tilde{\mu}_{IS} = \frac{\sum_{i=1}^n x_i w(x_i)}{\sum_{i=1}^n w(x_i)} = \frac{\sum_{i=1}^n x_i w^*(x_i)}{\sum_{i=1}^n w^*(x_i)} \, , \quad \text{where} \quad w^*(x_i) = \frac{f_5^*(x_i|\bm{y})}{f^*(x_i)} = (1-x_i)^4 \, .
 \end{equation*}
 %
-The method is implemented in the code below.
+The method is implemented and tested in the code below.
+<<f_star_5_d, eval=FALSE>>=
+@
+\vspace{-1em}
+<<is_d, eval=FALSE>>=
+@
+\vspace{-1em}
 <<D4>>=
 @
-
+%
+The estimated posterior mean is $\tilde{\mu}_{IS} =$ \Sexpr{format(round(mean_is, 4), nsmall=4)}, while the true mean (computed numerically) is $\mu =$ \Sexpr{format(round(true_mean_5, 4), nsmall=4)}. The new prior has changed the posterior and the mean, but importance sampling using the posterior from a uniform prior still results in an accurate estimate of the new posterior mean.
