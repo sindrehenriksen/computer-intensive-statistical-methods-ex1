@@ -34,24 +34,8 @@ ggplot(data = samples) +
 
 # Compare empirical means and variances with true values for different alphas
 n = 1000
-alphas = c(1.1,
-           2,
-           5,
-           10,
-           20,
-           35,
-           50,
-           75,
-           100,
-           200,
-           350,
-           500,
-           750,
-           1000,
-           1250,
-           1500,
-           1750,
-           2000)
+alphas = c(1.1, 2, 5, 10, 20, 35, 50, 75, 100, 200, 350, 500, 750, 1000, 1250,
+           1500, 1750, 2000)
 empirical_means = empirical_vars = n_tries = numeric(length(alphas))
 for (i in 1:length(alphas)) {
   sim_i = r_gamma2(n, alphas[i])
@@ -67,6 +51,9 @@ max((empirical_vars - true_vars) / true_vars)
 # Plot number of tries needed to generate 1000 realizations versus alpha
 ggplot(data = tibble(x = alphas, y = n_tries)) +
   geom_point(aes(x = x, y = y)) + xlab("alpha") + ylab("tries")
+
+ggplot(data = tibble(x = sqrt(alphas), y = n_tries)) +
+  geom_point(aes(x = x, y = y)) + xlab("alpha^(1/2)") + ylab("tries")
 
 # Log-log plot number of tries versus alpha
 ggplot(data = tibble(x = alphas, y = n_tries), aes(x = x, y = y)) +
