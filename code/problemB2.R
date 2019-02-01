@@ -68,9 +68,6 @@ max((empirical_vars - true_vars) / true_vars)
 ggplot(data = tibble(x = alphas, y = n_tries)) +
   geom_point(aes(x = x, y = y)) + xlab("alpha") + ylab("tries")
 
-ggplot(data = tibble(x = sqrt(alphas), y = n_tries)) +
-  geom_point(aes(x = x, y = y)) + xlab("alpha^(1/2)") + ylab("tries")
-
 # Log-log plot number of tries versus alpha
 ggplot(data = tibble(x = alphas, y = n_tries), aes(x = x, y = y)) +
   geom_point() +
