@@ -38,7 +38,7 @@ We wish to generate samples from the distribution given in equation~\eqref{eq:f}
     x \geq 1: & \quad \frac{x^{\alpha - 1}}{\Gamma(\alpha)c} \leq \frac{1}{\Gamma(\alpha)c} = \frac{\e + \alpha}{\Gamma(\alpha + 1)e} \leq k \, ,
 \end{align*}
 %
-where $c = \e\alpha/(\e + \alpha)$, as before. We set $k$ as small as possible to maximize the acceptance probability $k^{-1}$, i.e. $k = [\Gamma(\alpha)c]^{-1}$.
+where $c = \e\alpha/(\e + \alpha)$, as before. We set $k$ as small as possible to maximize the overall acceptance probability $k^{-1}$, i.e. $k = [\Gamma(\alpha)c]^{-1}$.
 
 \paragraph{(b)}
 The function \texttt{r\_gamma1()} below generates a vector of $n$ independent samples from $f$ with $\alpha < 1$ and $\beta = 1$.
@@ -61,7 +61,7 @@ We see in figure~\ref{fig:B1} that the density from the simulations matches $f$ 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{2.}
-We now consider a Gamma distribution \eqref{eq:f} with parameters $\alpha > 0$ and $\beta = 1$. We wish to generate samples from the distribution using the ratio of uniforms method. That is, we sample uniformly from
+We now consider a Gamma distribution with parameters $\alpha > 0$ and $\beta = 1$ \eqref{eq:f}. We wish to generate samples from the distribution using the ratio of uniforms method. That is, we sample uniformly from
 %
 \begin{equation*}
     C_f = \left\{ (x_1, x_2): 0 \leq x_1 \leq \sqrt{f^*\left(\frac{x1}{x2}\right)} \right\} \quad \text{where} \quad f^*(x) =
