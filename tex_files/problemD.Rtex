@@ -51,7 +51,7 @@ In the following code we sample 10000 times from $f(\theta|\bm{y})$ using both t
 <<D2, fig.align='center', fig.width=6, fig.height=4, fig.cap="The red line is the theoretical posterior density $f(\\theta|y)$ (see \\eqref{eq:f_theta}). The bins are frequency histograms of simulations from an exact simulation algorithm (light blue) and an approximate algorithm (light grey). The colors are mixed where they overlap. The vertical red line is the theoretical mean, and the dark green line is the empirical mean from the exact algorithm.">>=
 @
 %
-The estimated means from the exact method and the approximate method are \Sexpr{signif(empirical_mean, 4)} and \Sexpr{signif(empirical_mean_approx, 4)}, respectively, close to the theoretical (numerically computed) mean $\mu =$ \Sexpr{signif(true_mean, 4)}. The exact algorithm gives samples matching the theoretical density especially well. The approximate density has a larger spread than the theoretical density (this becomes evident when running more simulations, e.g. 100000). This is not surprising given the uniform prior. The estimates are more accurate when increasing m (the number of samples we resample from), which comes at a high computational cost. 
+The results are illustrated in figure~\ref{fig:D2}. The estimated means from the exact method and the approximate method are \Sexpr{signif(empirical_mean, 4)} and \Sexpr{signif(empirical_mean_approx, 4)}, respectively, close to the theoretical (numerically computed) mean $\mu =$ \Sexpr{signif(true_mean, 4)}. The exact algorithm gives samples matching the theoretical density especially well. The approximate density has a larger spread than the theoretical density (this becomes evident when running more simulations, e.g. 100000). This is not surprising given the uniform prior. The estimates are more accurate when increasing m (the number of samples we resample from), which comes at a high computational cost. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{3.}
@@ -60,7 +60,7 @@ In the code below we check how many random numbers the algorithms have generated
 <<D3>>=
 @
 %
-The exact algorithm generates on average \Sexpr{n_random_numbers} $/$ \Sexpr{n} $=$ \Sexpr{n_random_numbers/n} random numbers to obtain one sample of $f(\theta|\bm{y})$, closely matching the inverse of the acceptance probability calculated approximately before. The approximate algorithm generates $m$, set to 20 in the code, random numbers per sample. With this $m$ the approximation is easily distinguished from the true distribution. The comparison might have had a different conclusion for a different proposal density, but here the exact algorithm is both more efficient and more notably precise.
+The exact algorithm generates on average \Sexpr{n_random_numbers} $/$ \Sexpr{n} $=$ \Sexpr{n_random_numbers/n} random numbers to obtain one sample of $f(\theta|\bm{y})$, closely matching the inverse of the acceptance probability calculated approximately before. The approximate algorithm generates $m$, set to 20 in the code, random numbers per sample. With this $m$ the approximation is easily distinguished from the true distribution. The comparison might have had a different conclusion for a different proposal density, but here the exact algorithm is both more efficient and notably more precise.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{4.}
