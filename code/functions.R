@@ -246,7 +246,7 @@ f_posterior_5_star = function(theta, y) {
 # Use importance sampling to estimate the posterior mean with prior Beta(1,5)
 posterior_mean_is = function(n, y) {
   x = r_posterior(n, y)$x
-  weights = f_posterior_5_star(x, y) / f_posterior_star(x, y)
+  weights = (1-x)^4  # f_posterior_5_star(x, y) / f_posterior_star(x, y)
   mean_is = sum(x * weights) / sum(weights)
   return(mean_is)
 }
