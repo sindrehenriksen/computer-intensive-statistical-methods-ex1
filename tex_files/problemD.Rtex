@@ -15,7 +15,7 @@ We consider a vector $\bm{y} = (y_1, y_2, y_3, y_4)$ of multinomially distribute
 %
 \begin{equation}
 \label{eq:f_theta}
-    f(\theta|\bm{y}) \propto (2+\theta)^{y_1} (1-\theta)^{y_2+y_3} \theta^{y_4} = f^*(\theta | y) \, , \quad \theta \in (0,1) \, .
+    f(\theta|\bm{y}) \propto (2+\theta)^{y_1} (1-\theta)^{y_2+y_3} \theta^{y_4} \eqdef f^*(\theta | y) \, , \quad \theta \in (0,1) \, .
 \end{equation}
 %
 In this task we are mainly interested in the posterior mean $\E(\theta|\bm{y})$.
@@ -64,4 +64,25 @@ The exact algorithm generates on average \Sexpr{n_random_numbers} $/$ \Sexpr{n} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{4.}
+We now assume a Beta$(1,5)$ prior
+%
+\begin{equation*}
+    f_5(\theta) = \frac{\theta^{\alpha-1}(1-\theta)^{\beta-1}}{B(\alpha, \beta)} = \frac{(1-\theta)^4}{B(1,5)} \propto (1-\theta)^4 \, .
+\end{equation*}
+%
+The new posterior is given by
+%
+\begin{equation*}
+    f_5(\theta|\bm{y}) \propto f(\bm{y}|\theta)f_5(\theta) \propto (2+\theta)^{y_1} (1-\theta)^{y_2+y_3+4} \theta^{y_4} \eqdef f_5^*(\theta|\bm{y}) \, , \quad \theta \in (0,1) \, .
+\end{equation*}
+%
+We wish to use importance sampling to estimate the new posterior mean $\mu$. The algorithm is as following: Sample $n$ times from a distribution $g(x)$ where $g(x) > 0$ where $f_5(\theta|\bm{y}) > 0$. We use $n = 10000$ and $g(x) = f(\theta|\bm{y})$. Let $w(x_i) = f_5(x_i|\bm{y}) / f(x_i|\bm{y})$. Then $\hat{\mu}_{IS} = \frac{\sum_i x_i w(x_i)}{n}$ is an unbiased estimate of $\mu$. This estimator, however, requires knowledge of the integration constant $c = \int_0^1 f_5^*(x|\bm{y}) \dif x$. We could calculate this numerically, but we choose to proceed with a self-normalizing (but in general not unbiased) estimate of $\mu$
+%
+\begin{equation*}
+    \tilde{\mu}_{IS} = \frac{\sum_{i=1}^n x_i w(x_i)}{\sum_{i=1}^n w(x_i)} = \frac{\sum_{i=1}^n x_i w^*(x_i)}{\sum_{i=1}^n w^*(x_i)} \, , \quad \text{where} \quad w^*(x_i) = \frac{f_5^*(x_i|\bm{y})}{f^*(x_i)} = (1-x_i)^4 \, .
+\end{equation*}
+%
+The method is implemented in the code below.
+<<D4>>=
+@
 
