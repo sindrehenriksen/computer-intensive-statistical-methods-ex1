@@ -186,7 +186,7 @@ r_dirichlet <- function(K, n, alpha, beta) {
 ## ---- f_star_d
 # Posterior density f(theta|y) (up to a normalising constant)
 f_posterior_star = function(theta, y) {
-  stopifnot(0 < theta && theta < 1)
+  stopifnot(all(0 < theta) && all(theta < 1))
   stopifnot(length(y) == 4)
   return((2 + theta) ^ y[1] * (1 - theta) ^ (y[2] + y[3]) * theta ^ y[4])
 }
@@ -236,7 +236,7 @@ r_posterior_approx = function(n, y) {
 # Posterior density f(theta|y) with prior Beta(1,5)
 # (up to a normalising constant)
 f_posterior_5_star = function(theta, y) {
-  stopifnot(0 < theta && theta < 1)
+  stopifnot(all(0 < theta) && all(theta < 1))
   stopifnot(length(y) == 4)
   return((2 + theta) ^ y[1] * (1 - theta) ^ (y[2] + y[3] + 4) * theta ^
            y[4])
@@ -245,8 +245,8 @@ f_posterior_5_star = function(theta, y) {
 ## ---- is_d
 # Use importance sampling to estimate the posterior mean with prior Beta(1,5)
 posterior_mean_is = function(n, y) {
-  u = runif(n)
-  weights = f_posterior_5_star(u, y)
-  mean_is = sum(u * weights) / sum(weights)
+  x = r_posterior(n, y)$x
+  weights = f_posterior_5_star(x, y) / f_posterior_star(x, y)
+  mean_is = sum(x * weights) / sum(weights)
   return(mean_is)
 }
