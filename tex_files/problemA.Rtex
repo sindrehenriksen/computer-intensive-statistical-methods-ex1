@@ -32,7 +32,7 @@ respectively. Let $F(x) = u$. The inverse $F^{-1}$ of $F$ is given by
 %
 \begin{equation}
 \label{eq:inv_exp}
-    x = F^{-1}(u) = -\frac{1}{\lambda}\ln{1-u} \, .
+    x = F^{-1}(u) = -\frac{1}{\lambda}\ln(1-u) \, .
 \end{equation}
 Using the inverse and letting $u \sim \mathrm{U}[0,1]$ (and so also $1-u \sim \mathrm{U}[0,1]$), we generate a vector of $n$ samples and compare it with the exact exponential distribution in the code below.
 %
@@ -44,13 +44,13 @@ Next we test \texttt{r\_exp()}.
 <<A1, fig.align='center', fig.width=6, fig.height=4, fig.cap="Theoretical density (red line) from a exponential distribution with parameter $\\lambda = 0.5$ and frequency histogram of simulations.">>==
 @
 %
-In Figure \ref{fig:A1} we can see that the histogram of the samples follow the exponential distribution using the same $\lambda$. The code also outputs the maximum error of the mean and variance. This tells us that the samples are from a exponential distribution.
+In Figure \ref{fig:A1} we can see that the histogram of the samples follow the exponential distribution using the same $\lambda$. The code also outputs the maximum relative error of the mean and variance compared to the true values $\lambda^{-1}$ and $\lambda^{-2}$, respectively. As we can see, errors are small.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{2.}
-
 \paragraph{(a)}
-We calculated the cumulative distribution function from the density function by 
-$G(x) = \int_{-\infty}^{x} g(x) dx$, and we get
+We consider the density function $g(x)$ given in 2. The cumulative density function
+$G(x) = \int_{-\infty}^{x} g(x) dx$ is
 %
 \begin{equation}
 G(x) =
