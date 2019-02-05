@@ -30,7 +30,7 @@ rg = function(n, alpha) {
   u = runif(n)
   x = numeric(n)
   x = ifelse((u < c / alpha), (u * alpha / c) ^ (1 / alpha),
-             log(c / u)
+             log(c / u))
   return(x)
 }
 
