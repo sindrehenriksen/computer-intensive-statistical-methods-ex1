@@ -12,7 +12,7 @@ lambda = 0.5
 n = 10000
 
 # Simulate from r_exp and create a dataframe
-samples = enframe(r_exp(lambda, n))
+samples = enframe(r_exp(n, lambda))
 
 # Plot histogram of distribution together with PDF
 ggplot(data = samples) +
@@ -38,7 +38,7 @@ lambdas = seq(lambdas_start,
               lambdas_stop,
               (lambdas_stop - lambdas_start) / (n_lambdas - 1))
 for (i in 1:n_lambdas) {
-  samples_i = enframe(x = r_exp(lambdas[i], n))
+  samples_i = enframe(x = r_exp(n, lambdas[i]))
   empirical_means[i] = mean(samples_i$value)
   empirical_vars[i] = var(samples_i$value)
   true_means[i] = 1 / lambdas[i]
