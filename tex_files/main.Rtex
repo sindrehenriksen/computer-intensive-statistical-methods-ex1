@@ -14,7 +14,6 @@
 \newcommand{\Cov}{\mathrm{Cov}}
 \newcommand{\e}{e} % Euler's number
 \newcommand{\vect}[1]{\ensuremath{\boldsymbol{\mathbf{#1}}}}
-\newcommand{\matr[1]}{\ensuremath{\boldsymbol{\mathbf{#1}}}}
 \newcommand{\eqdef}{=\vcentcolon}
 
 \setlength{\parindent}{0pt}
@@ -30,21 +29,21 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{A}
 \label{sec:problemA}
-\include{problemA}
+\input{problemA}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{B}
 \label{sec:problemB}
-\include{problemB}
+\input{problemB}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{C}
 \label{sec:problemC}
-\include{problemC}
+\input{problemC}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{D}
 \label{sec:problemD}
-\include{problemD}
+\input{problemD}
 
 \end{document}

@@ -22,18 +22,18 @@ In this task we are mainly interested in the posterior mean $\E(\theta|\vect{y})
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{1.}
-We wish to construct a rejection sampling algorithm to simulate from $f(\theta|\vect{y})$ using $\mathrm{U}(0,1)$ as the proposal density. This can be done exactly or approximately. To do it exactly we need to find $\max\limits_{\theta} f^*(\theta)$. For the observed $\vect{y}$ we get
+We wish to construct a rejection sampling algorithm to simulate from $f(\theta|\vect{y})$ using $\mathcal{U}(0,1)$ as the proposal density. This can be done exactly or approximately. To do it exactly we need to find $\max\limits_{\theta} f^*(\theta)$. For the observed $\vect{y}$ we get
 %
 \begin{equation*}
     \od{}{\theta} f^*(\theta|y) \propto -197 \theta^2 + 15 \theta + 68 = 0 \quad \Rightarrow \quad \theta_m \approx 0.62682150 \, ,
 \end{equation*}
 %
-and $f^*(\theta_m) \approx 1.83884 \cdot 10^{29}$. In the implementation the maximum is found numerically. We also need $c = \int_0^1 f^*(\theta|y) \dif \theta \approx 2.3577 \cdot 10^{28}$, which is found numerically. This gives the ideal overall acceptance probability $\frac{1}{k} = \max\limits_{\theta} f(\theta|\vect{y}) = f^*(\theta_m) / c \approx 7.780$ since the proposal density is $g(x) = 1$.
+and $f^*(\theta_m) \approx 1.83884 \cdot 10^{29}$. In the implementation the maximum is found numerically. We also need $c = \int_0^1 f^*(\theta|y) \dif \theta \approx 2.3577 \cdot 10^{28}$, which is found numerically. This gives the ideal inverse of the overall acceptance probability $k = \max\limits_{\theta} f(\theta|\vect{y}) = f^*(\theta_m) / c \approx 7.780$ since the proposal density is $g(x) = 1$.
 
 To implement the approximate algorithm described in lecture 4, $k$ and $c$ are not needed, since
 %
 \begin{equation*}
-    w_i = \frac{f(x_i)}{g(x_i)} \bigg/ \sum_{j=1}^n\frac{f(x_j)}{g(x_j)} = \frac{f^*(x_i)}{g(x_i)} \bigg/ \sum_{j=1}^n\frac{f^*(x_j)}{g(x_j)}.
+    w_i = \frac{f(x_i)}{g(x_i)} \bigg/ \sum_{j=1}^n\frac{f(x_j)}{g(x_j)} = \frac{f^*(x_i)}{g(x_i)} \bigg/ \sum_{j=1}^n\frac{f^*(x_j)}{g(x_j)} \, .
 \end{equation*}
 %
 Both methods are implemented in the code shown below.
@@ -48,7 +48,7 @@ Both methods are implemented in the code shown below.
 \paragraph{2.}
 In the following code we sample 10000 times from $f(\theta|\vect{y})$ using both the exact and the approximate sampling method, estimate the mean and compare with the theoretical distribution and mean.
 %
-<<D2, fig.align='center', fig.width=6, fig.height=4, fig.cap="The red line is the theoretical posterior density $f(\\theta|y)$ (see \\eqref{eq:f_theta}). The bins are frequency histograms of simulations from an exact simulation algorithm (light blue) and an approximate algorithm (light grey). The colors are mixed where they overlap. The vertical red line is the theoretical mean, and the dark green line is the empirical mean from the exact algorithm.">>=
+<<D2, fig.align='center', fig.width=7, fig.height=4, fig.cap="The red line is the theoretical posterior density $f(\\theta|y)$ (see \\eqref{eq:f_theta}). The bins are frequency histograms of simulations from an exact simulation algorithm (light blue) and an approximate algorithm (light grey). The colors are mixed where they overlap. The vertical red line is the theoretical mean, and the dark green line is the empirical mean from the exact algorithm.">>=
 @
 %
 The results are illustrated in figure~\ref{fig:D2}. The estimated means from the exact method and the approximate method are \Sexpr{signif(empirical_mean, 4)} and \Sexpr{signif(empirical_mean_approx, 4)}, respectively, close to the theoretical (numerically computed) mean $\mu =$ \Sexpr{signif(true_mean, 4)}. The exact algorithm gives samples matching the theoretical density especially well. The approximate density has a larger spread than the theoretical density (this becomes evident when running more simulations, e.g. 100000). This is not surprising given the uniform prior. The estimates are more accurate when increasing m (the number of samples we resample from), which comes at a high computational cost. 
@@ -60,7 +60,7 @@ In the code below we check how many random numbers the algorithms have generated
 <<D3>>=
 @
 %
-The exact algorithm generates on average \Sexpr{n_random_numbers} $/$ \Sexpr{n} $=$ \Sexpr{n_random_numbers/n} random numbers to obtain one sample of $f(\theta|\bm{y})$, closely matching the inverse of the acceptance probability calculated approximately before. The approximate algorithm generates $m$, set to 20 in the code, random numbers per sample. With this $m$ the approximation is easily distinguished from the true distribution. The comparison might have had a different conclusion for a different proposal density, but here the exact algorithm is both more efficient and notably more precise.
+The exact algorithm generates on average \Sexpr{n_random_numbers} $/$ \Sexpr{n} $=$ \Sexpr{n_random_numbers/n} random numbers to obtain one sample of $f(\theta|\bm{y})$, closely matching the inverse of the acceptance probability calculated approximately before ($k \approx 7.780$). The approximate algorithm generates $m$, set to 20 in the code, random numbers per sample. With this $m$ the approximation is easily distinguished from the true distribution. The comparison might have had a different conclusion for a different proposal density, but here the exact algorithm is both more efficient and notably more precise.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{4.}

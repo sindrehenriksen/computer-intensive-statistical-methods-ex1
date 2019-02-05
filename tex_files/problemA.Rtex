@@ -44,7 +44,7 @@ Next we test \texttt{r\_exp()}.
 <<A1, fig.align='center', fig.width=6, fig.height=4, fig.cap="Theoretical density (red line) from a exponential distribution with parameter $\\lambda = 0.5$ and frequency histogram of simulations.">>==
 @
 %
-In Figure \ref{fig:A1} we can see that the histogram of the samples follow the exponential distribution using the same $\lambda$. The code also outputs the maximum relative error of the mean and variance compared to the true values $\lambda^{-1}$ and $\lambda^{-2}$, respectively. As we can see, errors are small.
+In Figure \ref{fig:A1} we can see that the histogram of the samples follow the exponential distribution using the same $\lambda$. The code also outputs the maximum relative error of the mean and variance compared to the true values $\lambda^{-1}$ and $\lambda^{-2}$, respectively. As we can see, the errors are small.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{2.}
@@ -112,10 +112,10 @@ We now wish to generate $n$ samples of two standard normal distribution using th
 %
 Next we test \texttt{r\_boxmuller()}.
 %
-<<A3, fig.align='center', fig.width=6, fig.height=4, fig.cap="Theoretical density (red lines) from the standard normal distribution with and frequency histogram of simulations using the Box-Muller algorithm.">>==
+<<A3, fig.align='center', fig.width=7, fig.height=4, fig.cap="Theoretical density (red lines) from the standard normal distribution with an frequency histogram of a simulation using the Box-Muller algorithm.">>==
 @
 %
-In Figure \ref{fig:A3} we see that the frequency plot of the two sample follow the theoretical standard normal distribution $\mathcal{N}[0,1]$. This tells us that the Box-Muller algorithm successfully generates samples from a standard normal distribution.
+In Figure \ref{fig:A3} we see that the frequency plot of the two sample follow the theoretical standard normal distribution $\mathcal{N}[0,1]$. The empirical mean and variance are \Sexpr{format(round(empirical_mean, 4), nsmall=4)} and \Sexpr{format(round(empirical_var, 4), nsmall=4)}, respectively. We conclude that the Box-Muller algorithm successfully generates samples from a standard normal distribution.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{4.}
@@ -128,8 +128,8 @@ We set $\mu \sim \mathcal{U}_d[0,10]$ and $A$ to be a $(d \times d)$ matrix of u
 %
 Next we test \texttt{r\_multinorm()}.
 %
-<<A4, fig.align='center', fig.width=6, fig.height=4, fig.cap="fig caption">>==
+<<A4>>==
 @
 %
-From running test \texttt{r\_boxmuller()}, which outputs the maximum relative error of the mean and covariances, we see that we have generated samples from a d-variate normal distribution. 
+We see from the outputs of the maximum relative error of the mean and covariances, that the algorithm works as expected; the errors are very small.
 % maybe have divariate plot of this?
