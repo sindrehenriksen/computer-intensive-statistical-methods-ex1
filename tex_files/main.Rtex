@@ -9,7 +9,9 @@
 \renewcommand{\thesection}{Problem}
 
 \newcommand{\G}{\mathrm{\Gamma}} % Gamma function
-\newcommand{\E}{\mathrm{E}}
+\newcommand{\E}{{\rm I\kern-.3em E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
 \newcommand{\e}{e} % Euler's number
 \newcommand{\vect}[1]{\ensuremath{\boldsymbol{\mathbf{#1}}}}
 \newcommand{\matr[1]}{\ensuremath{\boldsymbol{\mathbf{#1}}}}
