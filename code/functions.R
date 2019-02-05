@@ -258,7 +258,7 @@ posterior_mean_is = function(n, y) {
   return(mean_is)
 }
 
-## --- multiplot
+## ---- multiplot
 # used instead of multiplot package, cause this doesn't work in overleaf
 multiplot <- function(..., plotlist = NULL, file, cols = 1, layout = NULL) {
   library(grid)
