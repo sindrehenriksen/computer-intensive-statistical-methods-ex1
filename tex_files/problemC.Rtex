@@ -8,10 +8,68 @@ read_chunk("../code/problemC2.R")
 source("../code/functions.R")
 @
 \paragraph{1.}
-
+We want to show that $x_k$ has a dirichlet distribution with parameter vector $\alpha = \left(\alpha_1, \alpha_2, ..., \alpha_k\right)$. We have that $z_k \sim gamma(\alpha_k, 1)$ for k = 1, 2, ..., K , and that $x_k = z_k/(z_1 + z_2 + ... + z_k)$. We want to do a change of variable from $(z_1, z_2, ..., z_k)$ to $(x_1, x_2, ..., x_{K-1}, v)$, with $v = z_1 + z_2 + ... + z_k$. After which we want to integrate out $v$, to get a distribution of $x_k$ for $k = 1, 2, ..., K-1$. \\
+Using $v$ we get $x_k = z_k/v$ or
+\begin{equation}
+\label{eq:transformation}
+    z_k = v x_k.
+\end{equation}
+Since we are doing the a change of variable of the form $f_{\vect{x}}\left(x_1, x_2, ..., x_{K-1}, v\right) = f_{\vect{z}}\left(z_1, z_2, ..., z_k\right) |J|$, we need to find $|J|$, the determinant of the jacobian. $\vect{x}$ is a stochastic variable, therefore we know that $\sum_{k=1}^K x_k = 1$, meaning we can write \ref{eq:transformation} on the form $\left[z_1, z_2, ..., z_K\right] = \left[v x_1, v x_2, ..., v x_{K-1}, v\left(1 - \sum_{k = 1}^{K-1} x_k\right)\right]$. From this we calculate the determinant of the jacobian
+\begin{equation}
+\label{eq:det_jac}
+    \begin{array}{rcl}
+    |J| & = & 
+    \begin{vmatrix}
+    dz_1/dx_1 & dz_1/dx_2 & \cdots & dz_1/dx_{K-1} & dz_1/dv\\
+    dz_2/dx_1 & dz_2/dx_2 & \cdots & dz_2/dx_{K-1} & dz_2/dv\\
+    \vdots & \vdots & \ddots & \vdots & \vdots\\
+    dz_{K-1}/dx_1 & dz_{K-1}/dx_2 & \cdots & dz_{K-1}/dx_{K-1} & dz_{K-1}/dv\\
+    dz_k/dx_1 & dz_k/dx_2 & \cdots & dz_k/dx_{K-1} & dz_k/dv
+    \end{vmatrix}\\
+    \\
+    & = &
+    \begin{vmatrix}
+    v & 0 & \cdots & 0 & x_1\\
+    0 & v & \cdots & 0 & x_2\\
+    \vdots & \vdots & \ddots & \vdots & \vdots\\
+    0 & 0 & \cdots & v & X_{K-1}\\
+    -v & -v & \cdots & -v & 1-\sum_{k=1}^{K-1} x_k
+    \end{vmatrix} \\
+    \\
+    & = & v^{K-1}. \\
+    \end{array}
+\end{equation}
+To derive this determinant we used Laplace expansion on the first column K-2 times, dealing with the products, and then calculating the determinant of 2x2 matrixes. Since the variables are independent, the change of variable formula becomes
+\begin{equation}
+    \label{eq:cv}
+    f_{\vect{x}}\left(x_1, x_2, ..., x_{K-1}, v\right) %= \left[\prod_{k = 1}^{K-1} \left(v x_k\right)^{\alpha_k - 1} \frac{e^{-v x_k}}{\Gamma(\alpha_k)}\right] \left[\left(v \left(1 - sum_{k = 1}^{K - 1}\right)^{\alpha_K - 1}\right)^{\alpha_K-1} \frac{e^{-v\left(1 - \sum_{k = 1}^{K-1} x_k\right)}}{\Gamma(\alpha_K)}\right] \\
+    = \frac{\left(\prod\limits_{k=1}^{K-1}x_k\right)\left(1-\sum\limits_{k=1}^{K-1}x_k\right)^{\alpha_K-1}}{\prod\limits_{k=1}^{K}\Gamma(\alpha_k)} v^{\left(\sum\limits_{k=1}^{K}\alpha_k\right)-1} e^{-v}dv.
+\end{equation}
+Then we want to integrate out $v$ to get the marginal of $(x_1, x_2,...,x_{K-1})$, and we have
+\begin{equation}
+\label{eq:cv_int}
+    f_{\vect{x}}\left(x_1, x_2, ..., x_{K-1}\right)
+    = \frac{\left(\prod\limits_{k=1}^{K-1}x_k\right)\left(1-\sum\limits_{k=1}^{K-1}x_k\right)^{\alpha_K-1}}{\prod\limits_{k=1}^{K}\Gamma(\alpha_k)} \int\limits_{0}^{\infty}v^{\left(\sum\limits_{k=1}^{K}\alpha_k\right)-1} e^{-v}dv.
+\end{equation}
+The integral part is a gamma distribution so we use that $\Gamma(\alpha) = \int_0^\infty v^{\alpha -1} e^{-v} dv$, which means if we change $\alpha$ to be the sum of all $\alpha$'s, we get from \ref{eq:cv_int} that
+\begin{equation}
+    f_{\vect{x}}(x_1, x_2, ..., x_{K-1} = \frac{\Gamma\left(\sum\limits_{k=1}^K \alpha_k\right)}{\prod\limits_{k=1}^K\Gamma(\alpha_k)}\left(\prod\limits_{k=1}^{K-1} x_k^{\alpha_k-1}\right)\left(1-\sum\limits_{k=1}^{K-1}x_k\right)^{\alpha_K-1},
+\end{equation}
+which is the dirichlet distribution we wanted to find. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{2.} bla bla
-
+\paragraph{2.} 
+We wish to generate one realisation of the dirichlet distribution. To do this we use \texttt{r\_gamma()} $K$ times to generate $n$ samples from $K$ gamma distributions with parameter $\alpha_k$. Using \ref{eq:transformation} and the samples we find the dirichlet distribution. One can also calculate the theoretical mean and covariance, which is (with $A = \sum_{i=1}^K \alpha_k$)
+\begin{equation}
+    E(x_k) = \frac{\alpha_k}{A},
+\end{equation}
+and
+\begin{equation}
+    \matr{\Sigma}_{ij} =
+    \begin{cases}
+        \frac{-\alpha_i\alpha_j}{A^2(A+1)}, & i \neq j \\
+        \frac{\alpha_i}{A(A+1)} -\frac{\alpha_i^2}{A^2(A+1)}, & i = j
+    \end{cases}.
+\end{equation}
 %
 <<r_dirichlet, eval=FALSE>>=
 @
@@ -21,3 +79,4 @@ test \texttt{r\_dirichlet()}.
 <<C2, fig.align='center', fig.width=6, fig.height=4, fig.cap="fig caption">>==
 @
 %
+From running test \texttt{r\_dirichlet()}, with the outputs of maximum relative error of mean and covariance. We can see that they don't differ to much from each other. This tells us that the realisation is a dirichlet distribution.

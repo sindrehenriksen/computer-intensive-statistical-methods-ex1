@@ -11,7 +11,8 @@
 \newcommand{\G}{\mathrm{\Gamma}} % Gamma function
 \newcommand{\E}{\mathrm{E}}
 \newcommand{\e}{e} % Euler's number
-\newcommand{\vect}[1]{\boldsymbol{#1}}
+\newcommand{\vect}[1]{\ensuremath{\boldsymbol{\mathbf{#1}}}}
+\newcommand{\matr[1]{\ensuremath{\boldsymbol{\mathbf{#1}}}}}
 \newcommand{\eqdef}{=\vcentcolon}
 
 \setlength{\parindent}{0pt}
