@@ -11,13 +11,8 @@ set.seed(123)
 alpha = 0.5
 n = 100000
 
-# Simulate and calculate empirical and true means and variances
+# Simulate from rg() and create a dataframe
 samples = tibble(x = rg(n, alpha))
-empirical_mean = mean(samples$x)
-empirical_var = var(samples$x)
-true_mean = c_func(alpha) * (1 / (alpha + 1) + 2 * exp(-1))
-true_var = c_func(alpha) * (1 / (alpha + 2) + 5 * exp(-1)) -
-  true_mean ^ 2
 
 # Plot histogram of distribution together with PDF
 ggplot(data = samples) +

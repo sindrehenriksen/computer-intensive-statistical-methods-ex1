@@ -11,12 +11,8 @@ set.seed(123)
 lambda = 0.5
 n = 10000
 
-# Simulate and calculate empirical and true means and variances
+# Simulate from r_exp and create a dataframe
 samples = enframe(r_exp(lambda, n))
-empirical_mean = mean(samples$value)
-empirical_var = var(samples$value)
-true_mean = 1 / lambda
-true_var = 1 / lambda ^ 2
 
 # Plot histogram of distribution together with PDF
 ggplot(data = samples) +

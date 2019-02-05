@@ -64,14 +64,14 @@ r_multinorm = function(n, d) {
     }
   }
   A = matrix(0, d, d)
-  #generating a matrix A
+  # Generating a matrix A
   for (i in 1:d) {
     A[, i] = runif(d)
   }
   mu = runif(d) * 10
   multinorm = list(y = mu + A %*% x,
                    true_mean = mu,
-                   #creating a positive definite covariance
+                   # Creating a positive definite covariance
                    true_cov = A %*% t(A))
   return(multinorm)
 }
