@@ -30,7 +30,7 @@ rg = function(n, alpha) {
   u = runif(n)
   x = numeric(n)
   x = ifelse((u < c / alpha), (u * alpha / c) ^ (1 / alpha),
-             log(c / (1 - u)))
+             log(c / u)
   return(x)
 }
 
@@ -159,14 +159,14 @@ r_gamma = function(n, alpha, beta) {
 r_dirichlet <- function(K, n, alpha, beta) {
   x = matrix(0, n, K - 1)
   z = matrix(0, n, K)
-  #samling from gamma distribution Gamma(alpha, beta = 1) in problem B (r_gamma())
+  # Samling from gamma distribution Gamma(alpha, beta = 1) in problem B
   for (k in 1:K) {
     z[, k] = r_gamma(n, alpha[k], beta)
   }
   x = z[, 1:(K - 1)] / rowSums(z)
   A = sum(alpha)
   true_cov = matrix(0, K - 1, K - 1)
-  # calulcating theoretical covariance
+  # Calulcating theoretical covariance
   for (i in 1:(K - 1)) {
     for (j in i:(K - 1)) {
       if (i!=j) {
@@ -178,12 +178,12 @@ r_dirichlet <- function(K, n, alpha, beta) {
     }
   }
   return(
-    # returning a list of samples, empirical and theoretical mean/covariance
+    # Returning a list of samples, empirical and theoretical mean/covariance
     list(
       x = x,
       empirical_mean = colMeans(x),
       empirical_cov = cov(x),
-      #calculating theoretical mean
+      # Calculating theoretical mean
       true_mean = alpha[1:(K - 1)] / A,
       true_cov = true_cov
     )
