@@ -12,7 +12,7 @@
 \newcommand{\E}{\mathrm{E}}
 \newcommand{\e}{e} % Euler's number
 \newcommand{\vect}[1]{\ensuremath{\boldsymbol{\mathbf{#1}}}}
-\newcommand{\matr[1]{\ensuremath{\boldsymbol{\mathbf{#1}}}}}
+\newcommand{\matr[1]}{\ensuremath{\boldsymbol{\mathbf{#1}}}}
 \newcommand{\eqdef}{=\vcentcolon}
 
 \setlength{\parindent}{0pt}
