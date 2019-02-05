@@ -28,12 +28,14 @@ We consider the exponential distribution with parameter $\lambda > 0$, and wish 
 \label{eq:exp}
    f(x) =  \lambda e^{-\lambda x},
 \end{equation}
+%
 and the inverse of which is
+%
 \begin{equation}
 \label{eq:inv_exp}
     x = f^{-1} = -\frac{1}{\lambda}\ln{u}.
 \end{equation}
-Using the inverse and that $f(x) = u ~ U[0,1]$, we generate a vector of $n$ samples and compare it with the exact exponential distribution in the code below.
+Using the inverse and that $f(x) = u \sim U[0,1]$, we generate a vector of $n$ samples and compare it with the exact exponential distribution in the code below.
 %
 <<r_exp, eval=FALSE>>=
 @
