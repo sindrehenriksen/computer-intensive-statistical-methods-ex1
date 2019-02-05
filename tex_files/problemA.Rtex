@@ -34,7 +34,7 @@ respectively. Let $F(x) = u$. The inverse $F^{-1}$ of $F$ is given by
 \label{eq:inv_exp}
     x = F^{-1}(u) = -\frac{1}{\lambda}\log (1-u) \, .
 \end{equation}
-Using the inverse and letting $u \sim \mathrm{U}[0,1]$ (and so also $1-u \sim \mathrm{U}[0,1]$), we generate a vector of $n$ samples and compare it with the exact exponential distribution in the code below.
+Using the inverse and letting $u \sim \mathcal{U}[0,1]$ (and so also $1-u \sim \mathcal{U}[0,1]$), we generate a vector of $n$ samples and compare it with the exact exponential distribution in the code below.
 %
 <<r_exp, eval=FALSE>>=
 @
@@ -122,7 +122,7 @@ In Figure \ref{fig:A3} we see that the frequency plot of the two sample follow t
 %
 We wish to generate $n$ samples from a $d$-variate normal distribution with a given mean $\mu$ and covariance $\Sigma$. We use the Box-Muller algorithm to generate $n$ samples of $d$ standard normal distribution ($\vect{x} \sim \mathcal{N}_d[0,1]$). Then we use that, if $A A^T = \Sigma$, $\vect{y} = \vect{\mu} + A\vect{x} \sim \mathcal{N}_d[\vect{\mu}, \Sigma]$.
 
-We set $\mu \sim \mathrm{U}_d[0,10]$ and $A$ to be a $(d \times d)$ matrix of uniformly distributed elements ($a_{ij} = \mathrm{U}[0,1]$). Then we choose as covariance matrix $\Sigma = AA^T$, which ensures it is symmetric and positive definite. 
+We set $\mu \sim \mathcal{U}_d[0,10]$ and $A$ to be a $(d \times d)$ matrix of uniformly distributed elements ($a_{ij} = \mathcal{U}[0,1]$). Then we choose as covariance matrix $\Sigma = AA^T$, which ensures it is symmetric and positive definite. 
 <<r_multinorm, eval=FALSE>>=
 @
 %
@@ -131,5 +131,5 @@ Next we test \texttt{r\_multinorm()}.
 <<A4, fig.align='center', fig.width=6, fig.height=4, fig.cap="fig caption">>==
 @
 %
-From running test \texttt{r\_boxmuller()}, which outputs the maximum relative error of the mean and covariance, we see that we have generated samples from a d-variate normal distribution. 
+From running test \texttt{r\_boxmuller()}, which outputs the maximum relative error of the mean and covariances, we see that we have generated samples from a d-variate normal distribution. 
 % maybe have divariate plot of this?
