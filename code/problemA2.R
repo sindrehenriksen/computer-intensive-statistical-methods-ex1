@@ -29,11 +29,11 @@ ggplot(data = samples) +
   ) +
   stat_function(
     fun = function(x)
-      (g(x, alpha)
-      ), color="darkred",
+      (g(x, alpha)),
+    color="darkred",
     xlim=c(0.05, max(samples$x)))
 
-# Compare empirical means and variances with true values for different alphas
+# Compare empirical means and variances with theoretical for different alphas
 empirical_means = empirical_vars = numeric(9)
 true_means = true_vars = numeric(9)
 alphas = seq(0.1, 0.9, 0.1)
@@ -44,8 +44,7 @@ for (i in 1:9) {
   true_means[i] = c_func(alphas[i]) * (1 / (alphas[i] + 1) +
                                          2 * exp(-1))
   true_vars[i] = c_func(alphas[i]) * (1 / (alphas[i] + 2) +
-                                        5 * exp(-1)) - true_means[i] ^
-    2
+                                        5 * exp(-1)) - true_means[i] ^2
 }
 max((empirical_means - true_means) / true_means)
 max((empirical_vars - true_vars) / true_vars)

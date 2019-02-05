@@ -53,6 +53,8 @@ r_boxmuller = function(n) {
 # Simulate d x n values from a d-variate normal distribution
 r_multinorm = function(n, d) {
   x = matrix(0, d, n)
+  # Generating from r_boxmuller() in problem A3
+  # Using both samples if necessary
   for (i in 1:d) {
     df = r_boxmuller(n)
     x[i, ] = t(df[, 1])
@@ -62,13 +64,15 @@ r_multinorm = function(n, d) {
     }
   }
   A = matrix(0, d, d)
+  #generating a matrix A
   for (i in 1:d) {
     A[, i] = runif(d)
   }
   mu = runif(d) * 10
   multinorm = list(y = mu + A %*% x,
                    true_mean = mu,
-                   true_var = A %*% t(A))
+                   #creating a positive definite covariance
+                   true_cov = A %*% t(A))
   return(multinorm)
 }
 
@@ -151,34 +155,37 @@ r_gamma = function(n, alpha, beta) {
 }
 
 ## ---- r_dirichlet
-# Simulate n x (K-1) values from a dirichlet distribution
+# Simulate n points in the dirichlet distribution of dimension K-1
 r_dirichlet <- function(K, n, alpha, beta) {
   x = matrix(0, n, K - 1)
   z = matrix(0, n, K)
+  #samling from gamma distribution Gamma(alpha, beta = 1) in problem B (r_gamma())
   for (k in 1:K) {
     z[, k] = r_gamma(n, alpha[k], beta)
   }
   x = z[, 1:(K - 1)] / rowSums(z)
   A = sum(alpha)
-  true_var = matrix(0, K - 1, K - 1)
+  true_cov = matrix(0, K - 1, K - 1)
+  # calulcating theoretical covariance
   for (i in 1:(K - 1)) {
     for (j in i:(K - 1)) {
-      if (i != j) {
-        true_var[i, j] = -alpha[i] * alpha[j] / (A ^ 2 * (A + 1))
-        true_var[j, i] = true_var[i, j]
+      if (i!=j) {
+        true_cov[i, j] = -alpha[i] * alpha[j] / (A ^ 2 * (A + 1))
+        true_cov[j, i] = true_cov[i, j]
       } else{
-        true_var[i, j] = alpha[i] / (A * (A + 1)) - alpha[i] ^ 2 /
-          (A ^ 2 * (A + 1))
+        true_cov[i, j] = alpha[i] * (A - alpha[i]) / (A ^ 2* (A + 1))
       }
     }
   }
   return(
+    # returning a list of samples, empirical and theoretical mean/covariance
     list(
       x = x,
       empirical_mean = colMeans(x),
-      empirical_var = var(x),
+      empirical_cov = cov(x),
+      #calculating theoretical mean
       true_mean = alpha[1:(K - 1)] / A,
-      true_var = true_var
+      true_cov = true_cov
     )
   )
 }
@@ -249,4 +256,33 @@ posterior_mean_is = function(n, y) {
   weights = (1-x)^4  # f_posterior_5_star(x, y) / f_posterior_star(x, y)
   mean_is = sum(x * weights) / sum(weights)
   return(mean_is)
+}
+
+## --- multiplot
+# used instead of multiplot package, cause this doesn't work in overleaf
+multiplot <- function(..., plotlist = NULL, file, cols = 1, layout = NULL) {
+  library(grid)
+  plots <- c(list(...), plotlist)
+  
+  numPlots = length(plots)
+  
+  if (is.null(layout)) {
+    layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
+                     ncol = cols, nrow = ceiling(numPlots/cols))
+  }
+  
+  if (numPlots == 1) {
+    print(plots[[1]])
+    
+  } else {
+    grid.newpage()
+    pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
+    
+    for (i in 1:numPlots) {
+      matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
+      
+      print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
+                                      layout.pos.col = matchidx$col))
+    }
+  }
 }

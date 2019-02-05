@@ -6,16 +6,15 @@ source("functions.R")
 set.seed(123)
 
 # Params
-K = 3
-n = 10000
-start_alpha = 5
-stop_alpha = 10
-alpha = seq(start_alpha,stop_alpha,(stop_alpha-start_alpha)/(K-1))
+K = 5
+n = 100000
+# Generating alphas from a uniform distribution U[0,20]
+alpha = runif(K)*20
+# z_k ~ Gamma(alpha_k, 1) so setting beta = 1
 beta = 1
 
-# Simulate and calculate empirical and true means and variances
+# Simulate from the dirichlet distribution
 samples = r_dirichlet(K,n,alpha,beta)
+# Calculate the maximum relative error in mean and covariance.
 max((samples$empirical_mean - samples$true_mean) / samples$true_mean)
-max((samples$empirical_var - samples$true_var) / samples$true_var)
-
-
+max((samples$empirical_cov - samples$true_cov) / samples$true_cov)

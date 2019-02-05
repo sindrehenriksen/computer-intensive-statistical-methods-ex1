@@ -1,5 +1,5 @@
 #setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-rm(l = ls())
+rm(list = ls())
 source("functions.R")
 library(ggplot2)
 library(tibble)
@@ -8,11 +8,11 @@ library(tibble)
 set.seed(123)
 
 # Params
-lambda = 1
+lambda = 0.5
 n = 10000
 
 # Simulate and calculate empirical and true means and variances
-samples = enframe(r_exp(n, lambda))
+samples = enframe(r_exp(lambda, n))
 empirical_mean = mean(samples$value)
 empirical_var = var(samples$value)
 true_mean = 1 / lambda
@@ -28,9 +28,8 @@ ggplot(data = samples) +
   ) +
   stat_function(
     fun = function(x)
-    dexp(x, lambda),
-    color = "darkred",
-    size = 1
+      dexp(x, lambda),
+    color = "darkred"
   )
 
 # Compare empirical means and variances with true values for different alphas
@@ -43,7 +42,7 @@ lambdas = seq(lambdas_start,
               lambdas_stop,
               (lambdas_stop - lambdas_start) / (n_lambdas - 1))
 for (i in 1:n_lambdas) {
-  samples_i = enframe(x = r_exp(n, lambdas[i]))
+  samples_i = enframe(x = r_exp(lambdas[i], n))
   empirical_means[i] = mean(samples_i$value)
   empirical_vars[i] = var(samples_i$value)
   true_means[i] = 1 / lambdas[i]

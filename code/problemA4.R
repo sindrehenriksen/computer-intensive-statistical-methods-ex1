@@ -14,6 +14,6 @@ n = 10000
 # Simulate and calculate empirical and true means and variances
 samples = r_multinorm(n, d)
 empirical_mean = rowMeans(samples$y)
-empirical_var = var(t(samples$y))
+empirical_cov = cov(t(samples$y))
 max((empirical_mean - samples$true_mean) / samples$true_mean)
-max((empirical_var - samples$true_var) / samples$true_var)
+max((empirical_cov - samples$true_cov) / samples$true_cov)
