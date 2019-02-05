@@ -7,7 +7,7 @@ c_func = function(alpha) {
 ## ---- r_exp
 # Simulate n values from Exp(lambda)
 r_exp <- function(n, lambda) {
-  exp_dist = -1 / lambda * log(runif(n))
+  exp_dist = - log(1-runif(n))/ lambda
   return(exp_dist)
 }
 

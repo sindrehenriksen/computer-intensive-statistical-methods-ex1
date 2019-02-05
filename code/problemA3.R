@@ -21,8 +21,7 @@ norm1 = ggplot(data = samples) +
     aes(x = y1, y = ..density..),
     bins = 40,
     colour = "white",
-    fill = "cornflowerblue",
-    size = 0.1
+    fill = "cornflowerblue"
   ) +
   stat_function(
     fun = function(x)
@@ -35,8 +34,7 @@ norm2 = ggplot(data = samples) +
     aes(x = y2, y = ..density..),
     bins = 40,
     colour = "white",
-    fill = "cornflowerblue",
-    size = 0.1
+    fill = "cornflowerblue"
   ) +
   stat_function(
     fun = function(x)
