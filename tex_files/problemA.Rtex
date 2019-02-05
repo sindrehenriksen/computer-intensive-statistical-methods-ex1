@@ -15,32 +15,31 @@ read_chunk("../code/problemA4.R")
 @
 <<echo=FALSE>>=
 source("../code/functions.R")
-source("../code/multiplot.R")
 library(ggplot2)
 library(tibble)
 @
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{1.}
-We consider the exponential distribution with parameter $\lambda > 0$, and wish to generate samples from this. The distribution is
+We consider the exponential distribution with parameter $\lambda > 0$, and wish to generate samples from this. The probability density function and cumulative density function are
 %
 \begin{equation}
 \label{eq:exp}
-   f(x) =  \lambda e^{-\lambda x},
+   f(x) =  \lambda e^{-\lambda x} \quad \text{and} \quad F(x) = 1 - e^{-\lambda x} \, ,
 \end{equation}
 %
-and the inverse of which is
+respectively. Let $F(x) = u$. The inverse $F^{-1}$ of $F$ is given by
 %
 \begin{equation}
 \label{eq:inv_exp}
-    x = f^{-1} = -\frac{1}{\lambda}\ln{u}.
+    x = F^{-1}(u) = -\frac{1}{\lambda}\ln{1-u} \, .
 \end{equation}
-Using the inverse and that $f(x) = u \sim U[0,1]$, we generate a vector of $n$ samples and compare it with the exact exponential distribution in the code below.
+Using the inverse and letting $u \sim \mathrm{U}[0,1]$ (and so also $1-u \sim \mathrm{U}[0,1]$), we generate a vector of $n$ samples and compare it with the exact exponential distribution in the code below.
 %
 <<r_exp, eval=FALSE>>=
 @
-
-test \texttt{r\_exp()}.
+%
+Next we test \texttt{r\_exp()}.
 %
 <<A1, fig.align='center', fig.width=6, fig.height=4, fig.cap="Theoretical density (red line) from a exponential distribution with parameter $\\lambda = 0.5$ and frequency histogram of simulations.">>==
 @
