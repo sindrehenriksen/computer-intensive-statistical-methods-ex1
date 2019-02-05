@@ -11,24 +11,24 @@ library(tibble)
 @
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-We consider a vector $\bm{y} = (y_1, y_2, y_3, y_4)$ of multinomially distributed counts with probabilities $\bm{p} = (\frac{1}{2} + \frac{\theta}{4}, \frac{1-\theta}{4}, \frac{1-\theta}{4}, \frac{\theta}{4})$. The multinomial mass function is given by $f(y|\theta) \propto (2+\theta)^{y_1} (1-\theta)^{y_2+y_3} \theta^{y_4}$. The observed data is $y = (125, 18, 20, 34)$. First we assume a uniform prior on $(0, 1)$, resulting in a posterior density for $\theta$
+We consider a vector $\vect{y} = (y_1, y_2, y_3, y_4)$ of multinomially distributed counts with probabilities $\vect{p} = (\frac{1}{2} + \frac{\theta}{4}, \frac{1-\theta}{4}, \frac{1-\theta}{4}, \frac{\theta}{4})$. The multinomial mass function is given by $f(y|\theta) \propto (2+\theta)^{y_1} (1-\theta)^{y_2+y_3} \theta^{y_4}$. The observed data is $y = (125, 18, 20, 34)$. First we assume a uniform prior on $(0, 1)$, resulting in a posterior density for $\theta$
 %
 \begin{equation}
 \label{eq:f_theta}
-    f(\theta|\bm{y}) \propto (2+\theta)^{y_1} (1-\theta)^{y_2+y_3} \theta^{y_4} \eqdef f^*(\theta | y) \, , \quad \theta \in (0,1) \, .
+    f(\theta|\vect{y}) \propto (2+\theta)^{y_1} (1-\theta)^{y_2+y_3} \theta^{y_4} \eqdef f^*(\theta | y) \, , \quad \theta \in (0,1) \, .
 \end{equation}
 %
-In this task we are mainly interested in the posterior mean $\E(\theta|\bm{y})$.
+In this task we are mainly interested in the posterior mean $\E(\theta|\vect{y})$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{1.}
-We wish to construct a rejection sampling algorithm to simulate from $f(\theta|\bm{y})$ using $\mathrm{U}(0,1)$ as the proposal density. This can be done exactly or approximately. To do it exactly we need to find $\max_{\theta} f^*(\theta)$. For the observed $\bm{y}$ we get
+We wish to construct a rejection sampling algorithm to simulate from $f(\theta|\vect{y})$ using $\mathrm{U}(0,1)$ as the proposal density. This can be done exactly or approximately. To do it exactly we need to find $\max_{\theta} f^*(\theta)$. For the observed $\vect{y}$ we get
 %
 \begin{equation*}
     \od{}{\theta} f^*(\theta|y) \propto -197 \theta^2 + 15 \theta + 68 = 0 \quad \Rightarrow \quad \theta_m \approx 0.62682150 \, ,
 \end{equation*}
 %
-and $f^*(\theta_m) \approx 1.83884 \cdot 10^{29}$. In the implementation the maximum is found numerically. We also need $c = \int_0^1 f^*(\theta|y) \dif \theta \approx 2.3577 \cdot 10^{28}$, which is found numerically. This gives the ideal overall acceptance probability $\frac{1}{k} = \max_{\theta} f(\theta|\bm{y}) = f^*(\theta_m) / c \approx 7.780$ since the proposal density is $g(x) = 1$.
+and $f^*(\theta_m) \approx 1.83884 \cdot 10^{29}$. In the implementation the maximum is found numerically. We also need $c = \int_0^1 f^*(\theta|y) \dif \theta \approx 2.3577 \cdot 10^{28}$, which is found numerically. This gives the ideal overall acceptance probability $\frac{1}{k} = \max\limits_{\theta} f(\theta|\vect{y}) = f^*(\theta_m) / c \approx 7.780$ since the proposal density is $g(x) = 1$.
 
 To implement the approximate algorithm described in lecture 4 $k$ and $c$ are not needed, since
 %
@@ -46,7 +46,7 @@ Both methods are implemented in the code shown below.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{2.}
-In the following code we sample 10000 times from $f(\theta|\bm{y})$ using both the exact and the approximate sampling method, estimate the mean and compare with the theoretical distribution and mean.
+In the following code we sample 10000 times from $f(\theta|\vect{y})$ using both the exact and the approximate sampling method, estimate the mean and compare with the theoretical distribution and mean.
 %
 <<D2, fig.align='center', fig.width=6, fig.height=4, fig.cap="The red line is the theoretical posterior density $f(\\theta|y)$ (see \\eqref{eq:f_theta}). The bins are frequency histograms of simulations from an exact simulation algorithm (light blue) and an approximate algorithm (light grey). The colors are mixed where they overlap. The vertical red line is the theoretical mean, and the dark green line is the empirical mean from the exact algorithm.">>=
 @
@@ -73,10 +73,10 @@ We now assume a Beta$(1,5)$ prior
 The new posterior is given by
 %
 \begin{equation*}
-    f_5(\theta|\bm{y}) \propto f(\bm{y}|\theta)f_5(\theta) \propto (2+\theta)^{y_1} (1-\theta)^{y_2+y_3+4} \theta^{y_4} \eqdef f_5^*(\theta|\bm{y}) \, , \quad \theta \in (0,1) \, .
+    f_5(\theta|\vect{y}) \propto f(\bm{y}|\theta)f_5(\theta) \propto (2+\theta)^{y_1} (1-\theta)^{y_2+y_3+4} \theta^{y_4} \eqdef f_5^*(\theta|\vect{y}) \, , \quad \theta \in (0,1) \, .
 \end{equation*}
 %
-We wish to use importance sampling to estimate the new posterior mean $\mu$. The algorithm is as following: Sample $n$ times from a distribution $g(x)$ where $g(x) > 0$ where $f_5(\theta|\bm{y}) > 0$. We use $n = 10000$ and $g(x) = f(\theta|\bm{y})$. Let $w(x_i) = f_5(x_i|\bm{y}) / f(x_i|\bm{y})$. Then $\hat{\mu}_{IS} = \frac{\sum_i x_i w(x_i)}{n}$ is an unbiased estimate of $\mu$. This estimator, however, requires knowledge of the integration constant $c = \int_0^1 f_5^*(x|\bm{y}) \dif x$. We could calculate this numerically, but we choose to proceed with a self-normalizing (but in general not unbiased) estimate of $\mu$
+We wish to use importance sampling to estimate the new posterior mean $\mu$. The algorithm is as following: Sample $n$ times from a distribution $g(x)$ where $g(x) > 0$ where $f_5(\theta|\vect{y}) > 0$. We use $n = 10000$ and $g(x) = f(\theta|\vect{y})$. Let $w(x_i) = f_5(x_i|\vect{y}) / f(x_i|\vect{y})$. Then $\hat{\mu}_{IS} = \frac{\sum_i x_i w(x_i)}{n}$ is an unbiased estimate of $\mu$. This estimator, however, requires knowledge of the integration constant $c = \int_0^1 f_5^*(x|\vect{y}) \dif x$. We could calculate this numerically, but we choose to proceed with a self-normalizing (but in general not unbiased) estimate of $\mu$
 %
 \begin{equation*}
     \tilde{\mu}_{IS} = \frac{\sum_{i=1}^n x_i w(x_i)}{\sum_{i=1}^n w(x_i)} = \frac{\sum_{i=1}^n x_i w^*(x_i)}{\sum_{i=1}^n w^*(x_i)} \, , \quad \text{where} \quad w^*(x_i) = \frac{f_5^*(x_i|\bm{y})}{f^*(x_i)} = (1-x_i)^4 \, .

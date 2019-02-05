@@ -32,7 +32,7 @@ respectively. Let $F(x) = u$. The inverse $F^{-1}$ of $F$ is given by
 %
 \begin{equation}
 \label{eq:inv_exp}
-    x = F^{-1}(u) = -\frac{1}{\lambda}\ln(1-u) \, .
+    x = F^{-1}(u) = -\frac{1}{\lambda}\log (1-u) \, .
 \end{equation}
 Using the inverse and letting $u \sim \mathrm{U}[0,1]$ (and so also $1-u \sim \mathrm{U}[0,1]$), we generate a vector of $n$ samples and compare it with the exact exponential distribution in the code below.
 %
@@ -50,78 +50,77 @@ In Figure \ref{fig:A1} we can see that the histogram of the samples follow the e
 \paragraph{2.}
 \paragraph{(a)}
 We consider the density function $g(x)$ given in 2. The cumulative density function
-$G(x) = \int_{-\infty}^{x} g(x) dx$ is
+$G(x) = \int_{-\infty}^{x} g(x) \dif x$ is
 %
 \begin{equation}
 G(x) =
 \begin{cases}
 0, & x \leq 0 \\
 c\alpha^{-1}x^\alpha, & 0\ < x < 1 \\
-c(\alpha^{-1} + e^{-1}-e^{-x}), & 1\leq x .
-\end{cases}
+c(\alpha^{-1} + e^{-1}-e^{-x}), & 1\leq x
+\end{cases} \, ,
 \end{equation}
 %
-From this knowledge we find that the inverse of G(x) is:
+where $\alpha \in (0,1)$. This gives the inverse of G(x)
 %
 \begin{equation}
 G^{-1}(u) = 
 \begin{cases}
 \left(\frac{u\alpha}{c}\right)^{\frac{1}{\alpha}}, & 0 < u \leq c\alpha^{-1} \\
-ln\left[c^{-1}(u-1)\right], & c\alpha^{-1} < u \leq 1
-\end{cases}
+\log \left[c(1-u)^{-1}\right], & c\alpha^{-1} < u \leq 1
+\end{cases} \, .
 \end{equation}
 %
-We find the expected value of x by $E(x) = \int_0^\infty x g(x) dx$, and get
+We find the expected value $\E(x) = \int_0^\infty x g(x) \dif x$:
 %
 \begin{equation}
-    E(x) = c\left[\frac{1}{\alpha+1}+2e^{-1}\right] . 
+    \E(x) = c\left[\frac{1}{\alpha+1}+2e^{-1}\right] \, . 
 \label{eq:expected_A}
 \end{equation}
 %
-The variance one can find from the equation $var(x) = E(x^2)-\left[E(x)\right]^2$. Then by calculating $E(x^2)$ the same way as the expected value in \eqref{eq:expected_A}, we get
+The variance one can find from the equation $\Var(x) = \E(x^2)-\left[\E(x)\right]^2$. Then by calculating $\E(x^2)$ the same way as the expected value in \eqref{eq:expected_A}, we get
 %
 \begin{equation}
-    Var(x) = c\left[\frac{1}{\alpha+2}+5e^{-1}\right] -c^2\left[ \frac{1}{\alpha+1}+ 2e^{-1}\right].
+    \Var(x) = c\left[\frac{1}{\alpha+2}+5e^{-1}\right] -c^2\left[ \frac{1}{\alpha+1}+ 2e^{-1}\right].
 \end{equation}
-Furthermore one calculates the normalizing constant $c$ from calculating $\int_0^\infty g(x) dx= 1$ and solving for $c$. Yielding 
-$ c = \frac{e^1 \alpha}{e^1 + \alpha}$.
+The normalizing constant $c$ is given by solving $\int_0^\infty g(x) \dif x= 1$ for $c$, which yields 
+$ c = \frac{e \alpha}{e + \alpha}$.
 
 \paragraph{(b)}
-We wish to generate samples from $g$ and compare it to the theoretical distribution. The code \texttt{r\_g()} generates a vector of n independent samples from $g$ with $\alpha \in (0, 1)$.
+We wish to generate samples from $g$ and compare it to the theoretical distribution. The function \texttt{rg()} below generates a vector of n independent samples from $g$ with $\alpha \in (0, 1)$.
 %
 <<g, eval=FALSE>>=
 @
 \vspace{-1em}
 <<rg, eval=FALSE>>=
 @
-
-test \texttt{rg()}.
+%
+Next we test \texttt{rg()}.
 %
 <<A2, fig.align='center', fig.width=6, fig.height=4, fig.cap="Theoretical density (red line) from the $g(x)$ distribution with $\\alpha = 0.5$ and frequency histogram of simulations.">>==
 @
 %
-In Figure \ref{fig:A2} we see that the histogram height follow the theoretical distribution of g(x) using $\alpha = 0.5$. Also the code test of  \texttt{r\_g()} outputs the maximum relative error and variance. This tells us that the samples are indeed from the distribution $g(x)$.
+In Figure \ref{fig:A2} we see that the histogram height follows the theoretical distribution of g(x) using $\alpha = 0.5$. Also the code test of \texttt{rg()} outputs the maximum relative error and variance using different values of $\alpha$. The maximum error is less than 3\%, which indicates that the samples are indeed from the distribution $g(x)$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{3.}
 %
-
-We wish to generate $n$ samples of two standard normal distribution using the Box-Muller algorithm, which consist of generating two uniform distributed variables in polar coordinates. Then transforming them into cartesian coordinates and we will check if these are indeed then normal distributed.
+We now wish to generate $n$ samples of two standard normal distribution using the Box-Muller algorithm, which consists of generating two uniformly distributed variables in polar coordinates and then transforming them into Cartesian coordinates. We will check if these are indeed then normal distributed.
 %
 <<r_boxmuller, eval=FALSE>>=
 @
-
-test \texttt{r\_boxmuller()}.
 %
-<<A3, fig.align='center', fig.width=6, fig.height=4, fig.cap="fig caption">>==
+Next we test \texttt{r\_boxmuller()}.
+%
+<<A3, fig.align='center', fig.width=6, fig.height=4, fig.cap="Theoretical density (red lines) from the standard normal distribution with and frequency histogram of simulations using the Box-Muller algorithm.">>==
 @
 %
-In Figure \ref{fig:A3} we see that the frequency plot of the two sample follow the theoretical standard normal distribution $\mathcal{N}[0,1]$. This tells us that the Box-Muller algorithm worked in generating samples from a standard normal distribution.
+In Figure \ref{fig:A3} we see that the frequency plot of the two sample follow the theoretical standard normal distribution $\mathcal{N}[0,1]$. This tells us that the Box-Muller algorithm successfully generates samples from a standard normal distribution.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{4.}
 %
-We wish to generate $n$ samples from a $d$-variate normal distribution with a given mean $\mu$ and covariance $\Sigma$. We use the Box-Muller algorithm to generate $n$ samples of $d$ standard normal distribution($\vect{x} \sim \mathcal{N}_d[0,1]$). Then we use that $\vect{y} = \vect{\mu} + A\vect{x}$, where $\mu \sim \mathcal{U}_d[0,10]$ and $A$ is a $(d x d)$ matrix of uniformly distributed elements ($a_{ij} = U[0,1]$). Then we choose the covariance matrix to be $\Sigma = AA^T$, which makes it positive definite. 
+We wish to generate $n$ samples from a $d$-variate normal distribution with a given mean $\mu$ and covariance $\Sigma$. We use the Box-Muller algorithm to generate $n$ samples of $d$ standard normal distribution ($\vect{x} \sim \mathcal{N}_d[0,1]$). Then we use that $\vect{y} = \vect{\mu} + A\vect{x}$, where $\mu \sim \mathcal{U}_d[0,10]$ and $\bm{A}$ is a $(d x d)$ matrix of uniformly distributed elements ($a_{ij} = U[0,1]$). Then we choose the covariance matrix to be $\Sigma = AA^T$, which makes it positive definite. 
 %
 <<r_multinorm, eval=FALSE>>=
 @

@@ -31,7 +31,7 @@ We consider a Gamma distribution with parameters $\alpha \in (0, 1)$ and $\beta 
 %
 
 \paragraph{(a)}
-We wish to generate samples from the distribution given in equation~\eqref{eq:f} using rejection sampling with $g(x)$ (see equation~\eqref{eq:g}) as proposal density. We need to find $k \geq 1$ s.t. $f(x) \leq k \cdot g(x)$. In addition to the trivial case $x \leq 0$ (where $f(x) = g(x) = 0$, there are two cases:
+We wish to generate samples from the distribution given in equation~\eqref{eq:f} using rejection sampling with $g(x)$ (from problem A) as proposal density. We need to find $k \geq 1$ s.t. $f(x) \leq k \cdot g(x)$. In addition to the trivial case $x \leq 0$ (where $f(x) = g(x) = 0$, there are two cases:
 %
 \begin{align*}
     0 < x < 1: & \quad \frac{\e^{-x}}{\Gamma(\alpha)c} \leq \frac{1}{\Gamma(\alpha)c} = \frac{\e + \alpha}{\Gamma(\alpha + 1)e} \leq k \\
@@ -61,7 +61,7 @@ We see in figure~\ref{fig:B1} that the density from the simulations matches $f$ 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{2.}
-We now consider a Gamma distribution with parameters $\alpha > 0$ and $\beta = 1$ \eqref{eq:f}. We wish to generate samples from the distribution using the ratio of uniforms method. That is, we sample uniformly from
+We now consider a Gamma distribution with parameters $\alpha > 0$ and $\beta = 1$ from \eqref{eq:f}. We wish to generate samples from the distribution using the ratio of uniforms method. That is, we sample uniformly from
 %
 \begin{equation*}
     C_f = \left\{ (x_1, x_2): 0 \leq x_1 \leq \sqrt{f^*\left(\frac{x1}{x2}\right)} \right\} \quad \text{where} \quad f^*(x) =
