@@ -120,12 +120,13 @@ In Figure \ref{fig:A3} we see that the frequency plot of the two sample follow t
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{4.}
 %
-We wish to generate $n$ samples from a $d$-variate normal distribution with a given mean $\mu$ and covariance $\Sigma$. We use the Box-Muller algorithm to generate $n$ samples of $d$ standard normal distribution ($\vect{x} \sim \mathcal{N}_d[0,1]$). Then we use that $\vect{y} = \vect{\mu} + A\vect{x}$, where $\mu \sim \mathcal{U}_d[0,10]$ and $\bm{A}$ is a $(d x d)$ matrix of uniformly distributed elements ($a_{ij} = U[0,1]$). Then we choose the covariance matrix to be $\Sigma = AA^T$, which makes it positive definite. 
-%
+We wish to generate $n$ samples from a $d$-variate normal distribution with a given mean $\mu$ and covariance $\Sigma$. We use the Box-Muller algorithm to generate $n$ samples of $d$ standard normal distribution ($\vect{x} \sim \mathcal{N}_d[0,1]$). Then we use that, if $A A^T = \Sigma$, $\vect{y} = \vect{\mu} + A\vect{x} \sim \mathcal{N}_d[\vect{\mu}, \Sigma]$.
+
+We set $\mu \sim \mathrm{U}_d[0,10]$ and $A$ to be a $(d \times d)$ matrix of uniformly distributed elements ($a_{ij} = \mathrm{U}[0,1]$). Then we choose as covariance matrix $\Sigma = AA^T$, which ensures it is symmetric and positive definite. 
 <<r_multinorm, eval=FALSE>>=
 @
-
-test \texttt{r\_multinorm()}.
+%
+Next we test \texttt{r\_multinorm()}.
 %
 <<A4, fig.align='center', fig.width=6, fig.height=4, fig.cap="fig caption">>==
 @
