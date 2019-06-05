@@ -36,7 +36,7 @@ respectively. Let $F(x) = u$. The inverse $F^{-1}$ of $F$ is given by
 \end{equation}
 Using the inverse and letting $u \sim \mathcal{U}[0,1]$ (and so also $1-u \sim \mathcal{U}[0,1]$), we generate a vector of $n$ samples and compare it with the exact exponential distribution in the code below.
 %
-    <<r_exp, eval=FALSE>>=
+<<r_exp, eval=FALSE>>=
 @
 %
 Next we test \texttt{r\_exp()}.
